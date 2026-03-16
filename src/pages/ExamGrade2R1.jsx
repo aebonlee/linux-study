@@ -96,37 +96,18 @@ const ExamGrade2R1 = () => {
         {questions.map((q, qIdx) => (
           <section className="lesson-section" data-aos="fade-up" key={qIdx}>
             <h3>문제 {qIdx + 1}. {q.q}</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '12px' }}>
+            <div className={`exam-mcq-options${q.o.every(o => o.length <= 10) ? ' cols-4' : q.o.every(o => o.length <= 20) ? ' cols-2' : ''}`}>
               {q.o.map((option, oIdx) => {
-                let optClass = 'exam-option';
+                let cls = 'exam-mcq-btn';
                 if (submitted) {
-                  if (oIdx === q.a) optClass += ' correct';
-                  else if (answers[qIdx] === oIdx && oIdx !== q.a) optClass += ' wrong';
+                  cls += ' submitted';
+                  if (oIdx === q.a) cls += ' correct';
+                  else if (answers[qIdx] === oIdx) cls += ' wrong';
                 } else if (answers[qIdx] === oIdx) {
-                  optClass += ' selected';
+                  cls += ' selected';
                 }
                 return (
-                  <button
-                    key={oIdx}
-                    className={optClass}
-                    onClick={() => handleSelect(qIdx, oIdx)}
-                    style={{
-                      padding: '12px 16px',
-                      border: '2px solid var(--border-light)',
-                      borderRadius: '8px',
-                      background: submitted && oIdx === q.a ? 'rgba(34,197,94,0.1)' :
-                        submitted && answers[qIdx] === oIdx && oIdx !== q.a ? 'rgba(239,68,68,0.1)' :
-                        answers[qIdx] === oIdx ? 'var(--primary-blue-bg)' : 'var(--bg-white)',
-                      borderColor: submitted && oIdx === q.a ? '#22c55e' :
-                        submitted && answers[qIdx] === oIdx && oIdx !== q.a ? '#ef4444' :
-                        answers[qIdx] === oIdx ? 'var(--primary-blue)' : 'var(--border-light)',
-                      cursor: submitted ? 'default' : 'pointer',
-                      textAlign: 'left',
-                      fontSize: '15px',
-                      color: 'var(--text-primary)',
-                      transition: 'all 0.2s'
-                    }}
-                  >
+                  <button key={oIdx} className={cls} onClick={() => handleSelect(qIdx, oIdx)}>
                     ({oIdx + 1}) {option}
                   </button>
                 );
