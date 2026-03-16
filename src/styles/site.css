@@ -454,6 +454,10 @@
   color: var(--primary-blue);
 }
 
+.lesson-body a.btn-secondary:hover {
+  color: var(--text-white);
+}
+
 /* ─── Code Block ─── */
 .code-block {
   margin: 1.5rem 0;
