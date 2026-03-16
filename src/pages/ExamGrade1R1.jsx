@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../contexts/ProgressContext';
 
 const questions = [
   { q: '리눅스 커널 모듈을 의존성까지 고려하여 로드하는 명령어는?', o: ['insmod', 'modprobe', 'lsmod', 'rmmod'], a: 1, e: 'modprobe는 의존성을 자동으로 해결하여 커널 모듈을 로드합니다. insmod는 의존성을 처리하지 않습니다.' },
@@ -30,11 +31,12 @@ const questions = [
 const ExamGrade1R1 = () => {
   useAOS();
   const { t } = useLanguage();
+  const { recordExamResult } = useProgress();
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const handleSelect = (qIdx, oIdx) => { if (!submitted) setAnswers(prev => ({ ...prev, [qIdx]: oIdx })); };
-  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); const correctCount = Object.keys(answers).reduce((acc, idx) => acc + (answers[idx] === questions[idx].a ? 1 : 0), 0); recordExamResult('exam-grade1-r1', correctCount, questions.length); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const handleReset = () => { setAnswers({}); setSubmitted(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const score = submitted ? questions.reduce((acc, q, i) => acc + (answers[i] === q.a ? 1 : 0), 0) : 0;
 

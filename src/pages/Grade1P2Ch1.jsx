@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade1P2Ch1 = () => {
   useAOS();
@@ -332,6 +333,7 @@ $ mount -t cifs //server/shared /mnt/samba -o username=user1
             <Link to="/grade1/part1-ch2" className="btn btn-secondary">&larr; 1차 - 리눅스 시스템 관리</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade1-p2ch1" />
       </div>
     </>
   );

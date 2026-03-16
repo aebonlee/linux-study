@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const CommandsFile = () => {
   useAOS();
@@ -130,6 +131,7 @@ const CommandsFile = () => {
             <Link to="/commands/admin" className="btn btn-secondary">시스템 관리</Link>
           </div>
         </section>
+        <LessonComplete lessonId="cmd-file" />
       </div>
     </>
   );

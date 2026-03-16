@@ -37,7 +37,8 @@ export const translations = {
         examGrade1R1: '1급 1차 모의고사',
         examGrade1R2: '1급 2차 모의고사',
         references: '참고자료',
-        training: '교육신청'
+        training: '교육신청',
+        progress: '학습현황'
       },
       home: {
         heroDesc: '리눅스 마스터 2급/1급 자격증 취득을 위한 체계적인 학습 플랫폼입니다.',
@@ -51,13 +52,89 @@ export const translations = {
         goal3: '리눅스 마스터 1급 시험에 도전할 수 있는 고급 역량을 갖춘다',
         goal4: '실무에서 리눅스 서버를 운영하고 관리할 수 있다',
         curriculum: '리눅스 마스터 학습 커리큘럼',
-        curriculumDesc: '2급과 1급을 체계적으로 대비하는 리눅스 마스터 자격증 학습 과정입니다.'
+        curriculumDesc: '2급과 1급을 체계적으로 대비하는 리눅스 마스터 자격증 학습 과정입니다.',
+        grade2Title: '리눅스 마스터 2급',
+        grade2Desc: '기초부터 중급까지, 리눅스 운영체제의 핵심 개념과 실무 능력을 체계적으로 학습합니다.',
+        grade1Title: '리눅스 마스터 1급',
+        grade1Desc: '고급 실무 수준의 리눅스 시스템 관리, 네트워크 서비스, 보안 역량을 갖춥니다.',
+        commandsTitle: '명령어 사전',
+        commandsDesc: '리눅스 핵심 명령어를 카테고리별로 정리하여 빠르게 참고할 수 있습니다.',
+        examCta: '모의고사로 실력을 점검하세요',
+        examCtaDesc: '실전과 유사한 문제로 시험 대비 실력을 확인할 수 있습니다.'
       }
     },
     footer: {
       tagline: '리눅스 마스터 자격증 취득을 위한 체계적인 학습 플랫폼',
       quickLinks: '바로가기'
-    }
+    },
+    // Auth
+    login: '로그인',
+    loginTitle: '로그인',
+    loginSubtitle: '학습 진도를 저장하고 수료증을 발급받으세요',
+    signUp: '회원가입',
+    signUpTitle: '회원가입',
+    signUpSuccess: '인증 이메일을 확인해주세요. 이메일의 링크를 클릭하면 가입이 완료됩니다.',
+    logout: '로그아웃',
+    email: '이메일',
+    password: '비밀번호',
+    displayName: '이름',
+    back: '뒤로',
+    noAccount: '계정이 없으신가요?',
+    hasAccount: '이미 계정이 있으신가요?',
+    authError: '인증 중 오류가 발생했습니다',
+    // Profile
+    profile: '프로필',
+    editName: '이름 수정',
+    saveName: '저장',
+    cancelEdit: '취소',
+    completedLessons: '완료한 학습',
+    examsTaken: '응시한 시험',
+    syncing: '동기화 중...',
+    // Badges
+    badgesTitle: '뱃지',
+    badgeEarned: '획득',
+    badgeLocked: '미획득',
+    badgeIntroMaster: '리눅스 입문 마스터',
+    badgeIntroMasterDesc: '리눅스 개론 전체 완료',
+    badgeGrade2Master: '2급 마스터',
+    badgeGrade2MasterDesc: '2급 시험 학습 전체 완료',
+    badgeGrade1Master: '1급 마스터',
+    badgeGrade1MasterDesc: '1급 시험 학습 전체 완료',
+    badgeCommandMaster: '명령어 마스터',
+    badgeCommandMasterDesc: '명령어 사전 전체 완료',
+    badgeFirstStep: '첫 걸음',
+    badgeFirstStepDesc: '첫 번째 학습 완료',
+    badgeExplorer: '탐험가',
+    badgeExplorerDesc: '10개 학습 완료',
+    badgeChallenger: '도전자',
+    badgeChallengerDesc: '15개 학습 완료',
+    badgeGrandMaster: '그랜드 마스터',
+    badgeGrandMasterDesc: '모든 학습 완료',
+    // Certificate
+    certificateTitle: '수료증',
+    certificateSubtitle: '모의고사에서 60점 이상을 달성하면 수료증을 발급받을 수 있습니다.',
+    certificateLocked: '모의고사에서 60점 이상을 달성하면 수료증이 발급됩니다.',
+    certTitle: '수 료 증',
+    certAwardedTo: '아래의 학습자에게 수여합니다',
+    certDescription: '리눅스 마스터 자격증 학습 과정을 성실히 이수하였음을 증명합니다.',
+    certCompletedLessons: '완료 학습',
+    certCompletionRate: '진도율',
+    certBestExam: '최고 점수',
+    certDate: '발급일',
+    downloading: '다운로드 중...',
+    downloadPDF: 'PDF 다운로드',
+    downloadPNG: 'PNG 다운로드',
+    // Progress
+    progressTitle: '학습 현황',
+    progressSubtitle: '나의 학습 진도와 성취를 확인하세요',
+    totalCompleted: '완료한 학습',
+    totalRemaining: '남은 학습',
+    completionRate: '진도율',
+    overallProgress: '전체 진도',
+    stampCollection: '스탬프',
+    // Lesson complete
+    markComplete: '학습 완료',
+    lessonCompleted: '학습 완료됨'
   },
   en: {
     nav: {
@@ -97,7 +174,8 @@ export const translations = {
         examGrade1R1: 'Grade 1 Round 1',
         examGrade1R2: 'Grade 1 Round 2',
         references: 'References',
-        training: 'Apply'
+        training: 'Apply',
+        progress: 'Progress'
       },
       home: {
         heroDesc: 'A systematic learning platform for Linux Master Grade 2/1 certification.',
@@ -111,12 +189,88 @@ export const translations = {
         goal3: 'Develop advanced skills for Grade 1 certification',
         goal4: 'Operate and manage Linux servers in production',
         curriculum: 'Linux Master Curriculum',
-        curriculumDesc: 'A systematic certification course covering Grade 2 and Grade 1.'
+        curriculumDesc: 'A systematic certification course covering Grade 2 and Grade 1.',
+        grade2Title: 'Linux Master Grade 2',
+        grade2Desc: 'Systematically learn the core concepts and practical skills of Linux OS from basics to intermediate level.',
+        grade1Title: 'Linux Master Grade 1',
+        grade1Desc: 'Develop advanced skills in Linux system administration, network services, and security.',
+        commandsTitle: 'Command Reference',
+        commandsDesc: 'Quickly look up essential Linux commands organized by category.',
+        examCta: 'Test Your Skills with Mock Exams',
+        examCtaDesc: 'Practice with exam-style questions to prepare for the real test.'
       }
     },
     footer: {
       tagline: 'A systematic learning platform for Linux Master certification',
       quickLinks: 'Quick Links'
-    }
+    },
+    // Auth
+    login: 'Login',
+    loginTitle: 'Login',
+    loginSubtitle: 'Save your progress and earn certificates',
+    signUp: 'Sign Up',
+    signUpTitle: 'Sign Up',
+    signUpSuccess: 'Please check your email. Click the link to complete registration.',
+    logout: 'Logout',
+    email: 'Email',
+    password: 'Password',
+    displayName: 'Name',
+    back: 'Back',
+    noAccount: "Don't have an account?",
+    hasAccount: 'Already have an account?',
+    authError: 'An error occurred during authentication',
+    // Profile
+    profile: 'Profile',
+    editName: 'Edit Name',
+    saveName: 'Save',
+    cancelEdit: 'Cancel',
+    completedLessons: 'Completed Lessons',
+    examsTaken: 'Exams Taken',
+    syncing: 'Syncing...',
+    // Badges
+    badgesTitle: 'Badges',
+    badgeEarned: 'Earned',
+    badgeLocked: 'Locked',
+    badgeIntroMaster: 'Linux Intro Master',
+    badgeIntroMasterDesc: 'Complete all Linux Intro lessons',
+    badgeGrade2Master: 'Grade 2 Master',
+    badgeGrade2MasterDesc: 'Complete all Grade 2 lessons',
+    badgeGrade1Master: 'Grade 1 Master',
+    badgeGrade1MasterDesc: 'Complete all Grade 1 lessons',
+    badgeCommandMaster: 'Command Master',
+    badgeCommandMasterDesc: 'Complete all Command Reference lessons',
+    badgeFirstStep: 'First Step',
+    badgeFirstStepDesc: 'Complete your first lesson',
+    badgeExplorer: 'Explorer',
+    badgeExplorerDesc: 'Complete 10 lessons',
+    badgeChallenger: 'Challenger',
+    badgeChallengerDesc: 'Complete 15 lessons',
+    badgeGrandMaster: 'Grand Master',
+    badgeGrandMasterDesc: 'Complete all lessons',
+    // Certificate
+    certificateTitle: 'Certificate',
+    certificateSubtitle: 'Earn a certificate by scoring 60% or above on a mock exam.',
+    certificateLocked: 'Score 60% or above on a mock exam to unlock your certificate.',
+    certTitle: 'Certificate of Completion',
+    certAwardedTo: 'This certificate is awarded to',
+    certDescription: 'For successfully completing the Linux Master certification study course.',
+    certCompletedLessons: 'Lessons',
+    certCompletionRate: 'Completion',
+    certBestExam: 'Best Score',
+    certDate: 'Date',
+    downloading: 'Downloading...',
+    downloadPDF: 'Download PDF',
+    downloadPNG: 'Download PNG',
+    // Progress
+    progressTitle: 'Learning Progress',
+    progressSubtitle: 'Track your study progress and achievements',
+    totalCompleted: 'Completed',
+    totalRemaining: 'Remaining',
+    completionRate: 'Completion Rate',
+    overallProgress: 'Overall Progress',
+    stampCollection: 'Stamps',
+    // Lesson complete
+    markComplete: 'Mark Complete',
+    lessonCompleted: 'Completed'
   }
 };

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade2P1Ch1 = () => {
   useAOS();
@@ -519,6 +520,7 @@ $ cat /etc/fstab
             <Link to="/grade2/overview" className="btn btn-secondary">&larr; 2급 시험 개요</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade2-p1ch1" />
       </div>
     </>
   );

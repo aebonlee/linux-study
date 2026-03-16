@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
 import site from '../../config/site';
 
 const COLOR_OPTIONS = [
@@ -20,6 +21,7 @@ const Navbar = () => {
   const location = useLocation();
   const { mode, toggleTheme, colorTheme, setColorTheme } = useTheme();
   const { language, toggleLanguage, t } = useLanguage();
+  const { user, profile, isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -45,6 +47,8 @@ const Navbar = () => {
     if (checkPath === '/') return location.pathname === '/';
     return location.pathname.startsWith(checkPath);
   };
+
+  const displayName = profile?.display_name || user?.user_metadata?.display_name || user?.email?.split('@')[0] || '';
 
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
@@ -102,6 +106,23 @@ const Navbar = () => {
           </ul>
 
           <div className="nav-actions">
+            {!loading && (
+              isAuthenticated ? (
+                <Link to="/profile" className="nav-profile-btn">
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt="" className="nav-avatar" />
+                  ) : (
+                    <span className="nav-avatar-placeholder">
+                      {displayName.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </Link>
+              ) : (
+                <Link to="/login" className="nav-login-btn">
+                  {t('login')}
+                </Link>
+              )
+            )}
             <button className="lang-switcher" onClick={toggleLanguage} aria-label={language === 'ko' ? 'Switch to English' : '한국어로 전환'}>
               {language === 'ko' ? 'EN' : 'KR'}
             </button>

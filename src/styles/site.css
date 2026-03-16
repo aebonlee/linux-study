@@ -120,6 +120,154 @@
   transform: translateY(-2px);
 }
 
+/* ─── Home: Goals Grid ─── */
+.home-goals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.home-goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s;
+}
+
+.home-goal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.home-goal-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--primary-blue);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  border-radius: 50%;
+  margin-bottom: 16px;
+}
+
+.home-goal-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ─── Home: Curriculum Grid ─── */
+.home-curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.home-curriculum-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 20px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+.home-curriculum-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-blue);
+}
+
+.home-curriculum-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.home-curriculum-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.home-curriculum-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── Home: Command Grid ─── */
+.home-commands-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.home-command-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px 16px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+.home-command-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-blue);
+}
+
+.home-command-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.home-command-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.home-command-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ─── Home: Dark Mode ─── */
+[data-theme="dark"] .home-goal-card,
+[data-theme="dark"] .home-curriculum-card,
+[data-theme="dark"] .home-command-card {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+[data-theme="dark"] .home-goal-card:hover,
+[data-theme="dark"] .home-curriculum-card:hover,
+[data-theme="dark"] .home-command-card:hover {
+  border-color: var(--primary-blue);
+}
+
 /* ─── CT Intro Section ─── */
 .ct-intro-section {
   background: var(--bg-light-gray);

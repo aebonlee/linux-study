@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const CommandsNetwork = () => {
   useAOS();
@@ -130,6 +131,7 @@ const CommandsNetwork = () => {
             <Link to="/commands/basic" className="btn btn-secondary">기본 명령어</Link>
           </div>
         </section>
+        <LessonComplete lessonId="cmd-network" />
       </div>
     </>
   );

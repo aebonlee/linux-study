@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const WhatIsLinux = () => {
   useAOS();
@@ -321,6 +322,7 @@ const WhatIsLinux = () => {
             <Link to="/intro/distributions" className="btn btn-secondary">리눅스 배포판</Link>
           </div>
         </section>
+        <LessonComplete lessonId="intro-what-is-linux" />
       </div>
     </>
   );

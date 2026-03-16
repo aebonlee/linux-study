@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade2P1Ch2 = () => {
   useAOS();
@@ -415,6 +416,7 @@ $ history | tail -20`}</pre>
             <Link to="/grade2/part1-ch1" className="btn btn-secondary">&larr; 1차 - 리눅스 운영 및 관리</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade2-p1ch2" />
       </div>
     </>
   );

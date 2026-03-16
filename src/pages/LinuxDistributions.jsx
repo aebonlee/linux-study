@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const LinuxDistributions = () => {
   useAOS();
@@ -293,6 +294,7 @@ $ cat /etc/debian_version`}</pre>
             <Link to="/intro/history" className="btn btn-secondary">&larr; 리눅스의 역사</Link>
           </div>
         </section>
+        <LessonComplete lessonId="intro-distributions" />
       </div>
     </>
   );

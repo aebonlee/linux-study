@@ -1,0 +1,240 @@
+/* ===== Progress / Stamp Page ===== */
+.progress-page {
+    min-height: 100vh;
+    padding-bottom: var(--section-padding);
+}
+
+/* Progress Stats */
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.progress-stat-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 32px 20px;
+    text-align: center;
+    transition: var(--transition-base);
+}
+
+.progress-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.progress-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    background: var(--primary-blue-bg);
+}
+
+.progress-stat-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary-blue);
+}
+
+.progress-stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.progress-stat-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* Progress Bar */
+.progress-bar-section {
+    margin-bottom: 48px;
+}
+
+.progress-bar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.progress-bar-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.progress-bar-percent {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.progress-track {
+    height: 12px;
+    border-radius: 6px;
+    background: var(--bg-light-gray);
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: var(--primary-gradient);
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+/* Stamp Grid */
+.stamp-section {
+    margin-bottom: 48px;
+}
+
+.stamp-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.stamp-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--bg-white);
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-md);
+    transition: var(--transition-base);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px;
+}
+
+.stamp-cell:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: inherit;
+}
+
+.stamp-cell.completed {
+    background: var(--primary-blue-bg);
+    border-color: var(--primary-blue);
+}
+
+.stamp-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stamp-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.stamp-cell.completed .stamp-icon svg {
+    color: var(--primary-blue);
+}
+
+.stamp-number {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.stamp-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.stamp-community-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background: var(--primary-blue-bg);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 2px;
+}
+
+/* Category Progress */
+.category-progress {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.category-progress-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+}
+
+.category-progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.category-progress-name {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.category-progress-count {
+    font-size: 14px;
+    color: var(--text-secondary);
+}

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade1P3Ch2 = () => {
   useAOS();
@@ -332,6 +333,7 @@ $ crontab -e
             <Link to="/commands/basic" className="btn btn-secondary">명령어 사전</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade1-p3ch2" />
       </div>
     </>
   );

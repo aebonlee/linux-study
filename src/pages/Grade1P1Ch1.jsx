@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade1P1Ch1 = () => {
   useAOS();
@@ -334,6 +335,7 @@ $ docker logs web                # 컨테이너 로그
             <Link to="/grade1/overview" className="btn btn-secondary">&larr; 1급 시험 개요</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade1-p1ch1" />
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade2Overview = () => {
   useAOS();
@@ -268,6 +269,7 @@ wsl --install
             <Link to="/grade2/part1-ch3" className="btn btn-secondary">1차 - 리눅스 기초 명령어</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade2-overview" />
       </div>
     </>
   );

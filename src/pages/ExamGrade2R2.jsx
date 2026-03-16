@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../contexts/ProgressContext';
 
 const questions = [
   { q: 'systemd에서 런레벨 3에 해당하는 타겟은?', o: ['graphical.target', 'multi-user.target', 'rescue.target', 'poweroff.target'], a: 1, e: '런레벨 3(다중 사용자, 텍스트 모드)은 multi-user.target에 해당합니다.' },
@@ -30,11 +31,12 @@ const questions = [
 const ExamGrade2R2 = () => {
   useAOS();
   const { t } = useLanguage();
+  const { recordExamResult } = useProgress();
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const handleSelect = (qIdx, oIdx) => { if (!submitted) setAnswers(prev => ({ ...prev, [qIdx]: oIdx })); };
-  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); const correctCount = Object.keys(answers).reduce((acc, idx) => acc + (answers[idx] === questions[idx].a ? 1 : 0), 0); recordExamResult('exam-grade2-r2', correctCount, questions.length); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const handleReset = () => { setAnswers({}); setSubmitted(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const score = submitted ? questions.reduce((acc, q, i) => acc + (answers[i] === q.a ? 1 : 0), 0) : 0;
 

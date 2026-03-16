@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade2P2Ch2 = () => {
   useAOS();
@@ -340,6 +341,7 @@ $ cancel job_id                 # 인쇄 작업 취소
             <Link to="/grade2/part2-ch1" className="btn btn-secondary">&larr; 2차 - 리눅스 운영 및 관리</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade2-p2ch2" />
       </div>
     </>
   );

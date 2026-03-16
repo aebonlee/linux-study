@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade2P2Ch3 = () => {
   useAOS();
@@ -361,6 +362,7 @@ $ umask 027
             <Link to="/exam/grade2-round1" className="btn btn-secondary">2급 모의고사</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade2-p2ch3" />
       </div>
     </>
   );

@@ -167,8 +167,8 @@ const Home = () => {
       <section className="section" style={{ padding: 'var(--section-padding) 0' }}>
         <div className="container">
           <div className="section-header" data-aos="fade-up">
-            <h2 className="section-title">리눅스 마스터 2급</h2>
-            <p className="section-subtitle">기초부터 중급까지, 리눅스 운영체제의 핵심 개념과 실무 능력을 체계적으로 학습합니다.</p>
+            <h2 className="section-title">{t('site.home.grade2Title')}</h2>
+            <p className="section-subtitle">{t('site.home.grade2Desc')}</p>
           </div>
           <div className="home-curriculum-grid">
             {grade2Curriculum.map((item, i) => (
@@ -186,8 +186,8 @@ const Home = () => {
       <section className="section" style={{ padding: 'var(--section-padding) 0', background: 'var(--bg-light-gray)' }}>
         <div className="container">
           <div className="section-header" data-aos="fade-up">
-            <h2 className="section-title">리눅스 마스터 1급</h2>
-            <p className="section-subtitle">고급 실무 수준의 리눅스 시스템 관리, 네트워크 서비스, 보안 역량을 갖춥니다.</p>
+            <h2 className="section-title">{t('site.home.grade1Title')}</h2>
+            <p className="section-subtitle">{t('site.home.grade1Desc')}</p>
           </div>
           <div className="home-curriculum-grid">
             {grade1Curriculum.map((item, i) => (
@@ -205,8 +205,8 @@ const Home = () => {
       <section className="section" style={{ padding: 'var(--section-padding) 0' }}>
         <div className="container">
           <div className="section-header" data-aos="fade-up">
-            <h2 className="section-title">명령어 사전</h2>
-            <p className="section-subtitle">리눅스 핵심 명령어를 카테고리별로 정리하여 빠르게 참고할 수 있습니다.</p>
+            <h2 className="section-title">{t('site.home.commandsTitle')}</h2>
+            <p className="section-subtitle">{t('site.home.commandsDesc')}</p>
           </div>
           <div className="home-commands-grid">
             {commandCards.map((item, i) => (
@@ -223,8 +223,8 @@ const Home = () => {
       {/* Mock Exam CTA */}
       <section className="section" style={{ padding: 'var(--section-padding) 0', background: 'var(--bg-light-gray)' }}>
         <div className="container text-center" data-aos="fade-up">
-          <h2 className="section-title">모의고사로 실력을 점검하세요</h2>
-          <p className="section-subtitle mb-4">실전과 유사한 문제로 시험 대비 실력을 확인할 수 있습니다.</p>
+          <h2 className="section-title">{t('site.home.examCta')}</h2>
+          <p className="section-subtitle mb-4">{t('site.home.examCtaDesc')}</p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/exam/grade2-round1" className="btn btn-primary">2급 1차 모의고사</Link>
             <Link to="/exam/grade2-round2" className="btn btn-secondary">2급 2차 모의고사</Link>

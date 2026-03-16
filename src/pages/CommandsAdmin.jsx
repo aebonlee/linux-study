@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const CommandsAdmin = () => {
   useAOS();
@@ -139,6 +140,7 @@ const CommandsAdmin = () => {
             <Link to="/commands/file" className="btn btn-secondary">파일/디렉터리 관리</Link>
           </div>
         </section>
+        <LessonComplete lessonId="cmd-admin" />
       </div>
     </>
   );

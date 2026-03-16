@@ -1342,3 +1342,138 @@
         font-size: 15px;
     }
 }
+
+/* ============================================
+   Home Page Responsive
+   ============================================ */
+
+@media (max-width: 1100px) {
+    .home-curriculum-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .home-commands-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-goals-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .home-curriculum-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .home-commands-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-goals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-curriculum-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-commands-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   Auth / Profile / Progress Responsive
+   ============================================ */
+
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 28px 20px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 24px 20px;
+    }
+
+    .profile-name-row {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .profile-stats {
+        justify-content: center;
+    }
+
+    .profile-logout-btn {
+        width: 100%;
+    }
+
+    .badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .progress-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .category-progress {
+        grid-template-columns: 1fr;
+    }
+
+    .stamp-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .certificate-template {
+        transform: scale(0.35);
+    }
+
+    .certificate-preview-wrapper {
+        height: 280px;
+    }
+
+    .certificate-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cert-download-btn {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .progress-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stamp-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .badges-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-name-edit {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .profile-name-edit input {
+        width: 100%;
+    }
+}

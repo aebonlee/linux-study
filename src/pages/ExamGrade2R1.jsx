@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../contexts/ProgressContext';
 
 const questions = [
   { q: '리눅스 커널의 라이선스는 무엇인가?', o: ['MIT', 'BSD', 'GPL v2', 'Apache 2.0'], a: 2, e: '리눅스 커널은 GPL v2 라이선스로 배포됩니다.' },
@@ -30,6 +31,7 @@ const questions = [
 const ExamGrade2R1 = () => {
   useAOS();
   const { t } = useLanguage();
+  const { recordExamResult } = useProgress();
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -44,6 +46,8 @@ const ExamGrade2R1 = () => {
       return;
     }
     setSubmitted(true);
+    const correctCount = Object.keys(answers).reduce((acc, idx) => acc + (answers[idx] === questions[idx].a ? 1 : 0), 0);
+    recordExamResult('exam-grade2-r1', correctCount, questions.length);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

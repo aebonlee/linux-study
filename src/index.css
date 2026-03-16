@@ -8,5 +8,8 @@
 @import './styles/footer.css';
 @import './styles/animations.css';
 @import './styles/site.css';
+@import './styles/auth.css';
+@import './styles/profile.css';
+@import './styles/progress.css';
 @import './styles/dark-mode.css';
 @import './styles/responsive.css';

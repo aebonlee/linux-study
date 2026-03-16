@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProgress } from '../contexts/ProgressContext';
 
 const questions = [
   { q: 'SELinux에서 현재 모드를 일시적으로 Permissive로 변경하는 명령은?', o: ['setenforce 0', 'setenforce 1', 'getenforce permissive', 'sestatus -p'], a: 0, e: 'setenforce 0은 SELinux를 Permissive 모드로 변경합니다. setenforce 1은 Enforcing입니다.' },
@@ -30,11 +31,12 @@ const questions = [
 const ExamGrade1R2 = () => {
   useAOS();
   const { t } = useLanguage();
+  const { recordExamResult } = useProgress();
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const handleSelect = (qIdx, oIdx) => { if (!submitted) setAnswers(prev => ({ ...prev, [qIdx]: oIdx })); };
-  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  const handleSubmit = () => { if (Object.keys(answers).length < questions.length) { alert('모든 문제에 답을 선택해주세요.'); return; } setSubmitted(true); const correctCount = Object.keys(answers).reduce((acc, idx) => acc + (answers[idx] === questions[idx].a ? 1 : 0), 0); recordExamResult('exam-grade1-r2', correctCount, questions.length); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const handleReset = () => { setAnswers({}); setSubmitted(false); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const score = submitted ? questions.reduce((acc, q, i) => acc + (answers[i] === q.a ? 1 : 0), 0) : 0;
 

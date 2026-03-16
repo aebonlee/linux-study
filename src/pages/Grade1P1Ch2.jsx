@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const Grade1P1Ch2 = () => {
   useAOS();
@@ -308,6 +309,7 @@ $ dstat -cdnm 1                  # CPU, 디스크, 네트워크, 메모리`}</pr
             <Link to="/grade1/part1-ch1" className="btn btn-secondary">&larr; 1차 - 리눅스 실무의 이해</Link>
           </div>
         </section>
+        <LessonComplete lessonId="grade1-p1ch2" />
       </div>
     </>
   );

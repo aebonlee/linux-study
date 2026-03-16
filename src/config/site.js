@@ -81,7 +81,8 @@ const site = {
       ]
     },
     { path: '/references', labelKey: 'site.nav.references', activePath: '/references' },
-    { path: '/training', labelKey: 'site.nav.training', activePath: '/training' }
+    { path: '/training', labelKey: 'site.nav.training', activePath: '/training' },
+    { path: '/progress', labelKey: 'site.nav.progress', activePath: '/progress' }
   ],
 
   footerLinks: [

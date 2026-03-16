@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import useAOS from '../hooks/useAOS';
 import SEOHead from '../components/SEOHead';
 import { useLanguage } from '../contexts/LanguageContext';
+import LessonComplete from '../components/LessonComplete';
 
 const LinuxHistory = () => {
   useAOS();
@@ -339,6 +340,7 @@ Debian) 2.40) #1 SMP PREEMPT_DYNAMIC ...`}</pre>
             <Link to="/intro/what-is-linux" className="btn btn-secondary">&larr; 리눅스란?</Link>
           </div>
         </section>
+        <LessonComplete lessonId="intro-history" />
       </div>
     </>
   );
