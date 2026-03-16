@@ -243,11 +243,11 @@ const Training = () => {
         </section>
 
         <section className="lesson-section" data-aos="fade-up">
-          <h2>문의처</h2>
+          <h2>연락처</h2>
           <div className="callout-box info">
-            <p><strong>이메일:</strong> training@dreamitbiz.com</p>
-            <p><strong>전화:</strong> 02-1234-5678</p>
-            <p><strong>운영시간:</strong> 평일 09:00 ~ 18:00 (점심 12:00 ~ 13:00)</p>
+            <p><strong>이메일:</strong> aebon@dreamitbiz.com</p>
+            <p><strong>전화:</strong> 010-3700-0629</p>
+            <p><strong>운영시간:</strong> 평일 09:00 ~ 18:00</p>
           </div>
         </section>
       </div>
