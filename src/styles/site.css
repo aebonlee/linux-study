@@ -196,6 +196,7 @@
 .home-curriculum-icon {
   font-size: 2.5rem;
   margin-bottom: 12px;
+  font-family: 'Noto Color Emoji', sans-serif;
 }
 
 .home-curriculum-title {
@@ -240,6 +241,7 @@
 .home-command-icon {
   font-size: 2rem;
   margin-bottom: 10px;
+  font-family: 'Noto Color Emoji', sans-serif;
 }
 
 .home-command-title {
@@ -394,6 +396,7 @@
 .lesson-body {
   max-width: 800px;
   margin: 0 auto;
+  padding-top: 3rem;
 }
 
 .lesson-body h2 {
@@ -436,6 +439,19 @@
 .lesson-body a {
   color: var(--primary-blue);
   text-decoration: underline;
+}
+
+.lesson-body a.btn {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lesson-body a.btn-primary {
+  color: var(--text-white);
+}
+
+.lesson-body a.btn-secondary {
+  color: var(--primary-blue);
 }
 
 /* ─── Code Block ─── */
