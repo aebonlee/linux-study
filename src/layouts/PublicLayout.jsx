@@ -3,10 +3,12 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import useCodeCopy from '../hooks/useCodeCopy';
 import useTableScroller from '../hooks/useTableScroller';
+import usePageTracker from '../hooks/usePageTracker';
 
 const PublicLayout = () => {
   useCodeCopy();
   useTableScroller();
+  usePageTracker();
 
   return (
     <div className="site-wrapper">
