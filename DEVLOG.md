@@ -817,3 +817,41 @@ v1.8에서 커뮤니티 3페이지 CRUD 구현 시 실제 DB 스키마와 코드
 ### 빌드 결과
 - 빌드: 성공 (5.71s)
 - 에러: 0
+
+---
+
+## 2026-03-18 - v1.8.2 인기 페이지 필터링 및 페이지명 표시 개선
+
+### 개요
+`/community/stats` 인기 페이지 섹션에 다른 프로젝트의 URL이 표시되는 문제를 수정.
+Supabase `page_views` 테이블이 여러 프로젝트와 공유되어 있어, 이 사이트의 경로만 필터링하고
+사용자에게 raw URL 대신 한글 페이지명을 표시하도록 개선.
+
+### 문제
+- 인기 페이지 Top 5에 `/admin/project/...`, `/pricing`, `/eval/invite/...` 등 타 프로젝트 경로 노출
+- 사용자에게 의미 없는 raw URL path가 그대로 표시됨
+
+### 수정 사항
+
+#### `src/hooks/usePageTracker.js`
+- `isOwnPath()` 함수 추가: 이 사이트에 속하는 경로인지 판별
+  - 유효 접두사: `/intro/`, `/grade2/`, `/grade1/`, `/commands/`, `/exam/`, `/references`, `/training`, `/progress`, `/community/`, `/login`, `/profile`
+- 인기 페이지 카운팅에 `isOwnPath()` 필터 적용 → 타 프로젝트 경로 제외
+
+#### `src/pages/CommStats.jsx`
+- `PAGE_LABELS` 매핑 확장: 기존 시험 과목 페이지 외에 추가 경로 포함
+  - `/` (홈), `/references` (참고자료), `/training` (교육신청), `/progress` (학습 현황)
+  - `/login` (로그인), `/profile` (프로필)
+  - `/community` (커뮤니티), `/community/cert-intro` (자격증 소개)
+  - `/community/stats` (학습 현황), `/community/announcements` (공지사항)
+  - `/community/stamps` (모의고사 도장깨기), `/community/board` (게시판), `/community/gallery` (갤러리)
+
+### 변경 파일
+| 파일 | 변경 |
+|------|------|
+| `src/hooks/usePageTracker.js` | `isOwnPath()` 필터 추가, 인기 페이지 카운팅에 적용 |
+| `src/pages/CommStats.jsx` | `PAGE_LABELS` 13개 경로 추가 |
+
+### 빌드 결과
+- 빌드: 성공 (5.51s)
+- 에러: 0

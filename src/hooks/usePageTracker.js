@@ -66,10 +66,10 @@ export async function fetchSiteStats() {
     const allWeeklyVisitors = new Set((weeklyRes.data || []).map(r => r.visitor_id));
     const totalVisitors = Math.max(allWeeklyVisitors.size, todayVisitors);
 
-    // 인기 페이지 (조회 수 기준 상위 5개)
+    // 인기 페이지 (이 사이트 경로만, 조회 수 기준 상위 5개)
     const pageCounts = {};
     (popularRes.data || []).forEach(r => {
-      if (r.path && r.path !== '/') {
+      if (r.path && r.path !== '/' && isOwnPath(r.path)) {
         pageCounts[r.path] = (pageCounts[r.path] || 0) + 1;
       }
     });
@@ -100,4 +100,11 @@ export async function fetchSiteStats() {
     console.error('fetchSiteStats error:', e);
     return null;
   }
+}
+
+function isOwnPath(path) {
+  if (!path) return false;
+  if (path === '/') return true;
+  const prefixes = ['/intro/', '/grade2/', '/grade1/', '/commands/', '/exam/', '/references', '/training', '/progress', '/community/', '/login', '/profile'];
+  return prefixes.some(p => path.startsWith(p));
 }

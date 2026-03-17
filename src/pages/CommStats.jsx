@@ -6,6 +6,7 @@ import { fetchSiteStats } from '../hooks/usePageTracker';
 import useAOS from '../hooks/useAOS';
 
 const PAGE_LABELS = {
+  '/': '홈',
   '/intro/what-is-linux': '리눅스란?',
   '/intro/history': '리눅스의 역사',
   '/intro/distributions': '리눅스 배포판',
@@ -32,6 +33,18 @@ const PAGE_LABELS = {
   '/exam/grade2-round2': '2급 2차 모의고사',
   '/exam/grade1-round1': '1급 1차 모의고사',
   '/exam/grade1-round2': '1급 2차 모의고사',
+  '/references': '참고자료',
+  '/training': '교육신청',
+  '/progress': '학습 현황',
+  '/login': '로그인',
+  '/profile': '프로필',
+  '/community': '커뮤니티',
+  '/community/cert-intro': '자격증 소개',
+  '/community/stats': '학습 현황',
+  '/community/announcements': '공지사항',
+  '/community/stamps': '모의고사 도장깨기',
+  '/community/board': '게시판',
+  '/community/gallery': '갤러리',
 };
 
 export default function CommStats() {
