@@ -41,10 +41,22 @@ export default function CommStats() {
   const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
-    fetchSiteStats().then(data => {
-      setSiteStats(data);
+    const timeout = setTimeout(() => {
       setStatsLoading(false);
-    });
+    }, 8000);
+
+    fetchSiteStats()
+      .then(data => {
+        clearTimeout(timeout);
+        setSiteStats(data);
+        setStatsLoading(false);
+      })
+      .catch(() => {
+        clearTimeout(timeout);
+        setStatsLoading(false);
+      });
+
+    return () => clearTimeout(timeout);
   }, []);
 
   const isKo = language === 'ko';

@@ -40,14 +40,14 @@ export async function fetchSiteStats() {
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
     const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-    const [todayRes, totalRes, popularRes, weeklyRes] = await Promise.all([
+    const [todayRes, totalCountRes, popularRes, weeklyRes] = await Promise.all([
       // 오늘 순 방문자
       supabase.from('page_views')
         .select('visitor_id')
         .gte('created_at', todayStart),
-      // 전체 순 방문자
+      // 전체 페이지뷰 수 (count만 가져옴)
       supabase.from('page_views')
-        .select('visitor_id'),
+        .select('*', { count: 'exact', head: true }),
       // 인기 페이지 (최근 7일)
       supabase.from('page_views')
         .select('page_path')
@@ -58,10 +58,13 @@ export async function fetchSiteStats() {
         .gte('created_at', weekAgo)
     ]);
 
-    // 순 방문자 계산
+    // 오늘 순 방문자
     const todayVisitors = new Set((todayRes.data || []).map(r => r.visitor_id)).size;
-    const totalVisitors = new Set((totalRes.data || []).map(r => r.visitor_id)).size;
-    const totalPageViews = (totalRes.data || []).length;
+    // 전체 페이지뷰 (count 사용)
+    const totalPageViews = totalCountRes.count || 0;
+    // 전체 순 방문자 - 최근 7일 데이터에서 추정
+    const allWeeklyVisitors = new Set((weeklyRes.data || []).map(r => r.visitor_id));
+    const totalVisitors = Math.max(allWeeklyVisitors.size, todayVisitors);
 
     // 인기 페이지 (조회 수 기준 상위 5개)
     const pageCounts = {};
@@ -93,7 +96,8 @@ export async function fetchSiteStats() {
     }));
 
     return { todayVisitors, totalVisitors, totalPageViews, popularPages, dailyStats };
-  } catch {
+  } catch (e) {
+    console.error('fetchSiteStats error:', e);
     return null;
   }
 }
