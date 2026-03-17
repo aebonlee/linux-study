@@ -22,12 +22,17 @@ export default function CommGallery() {
 
   async function fetchData() {
     if (!supabase) { setLoading(false); return; }
-    const { data } = await supabase
-      .from('gallery_items')
-      .select('*, user_profiles(display_name)')
-      .order('created_at', { ascending: false });
-    setItems(data || []);
-    setLoading(false);
+    try {
+      const { data } = await supabase
+        .from('gallery_items')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setItems(data || []);
+    } catch (e) {
+      console.error('gallery fetch error:', e);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const filtered = filter === 'all' ? items : items.filter(i => i.category === filter);
@@ -42,25 +47,33 @@ export default function CommGallery() {
 
   function openEdit(item) {
     setEditItem(item);
-    setForm({ title: item.title, description: item.description, category: item.category, image_url: item.image_url || '' });
+    setForm({ title: item.title, description: item.description || '', category: item.category, image_url: item.image_url || '' });
     setShowModal(true);
   }
 
   async function handleSave() {
     if (!form.title.trim()) return;
-    if (editItem) {
-      await supabase.from('gallery_items').update(form).eq('id', editItem.id);
-    } else {
-      await supabase.from('gallery_items').insert([{ ...form, author_id: user.id }]);
+    try {
+      if (editItem) {
+        await supabase.from('gallery_items').update(form).eq('id', editItem.id);
+      } else {
+        await supabase.from('gallery_items').insert([{ ...form, author_id: user.id }]);
+      }
+      setShowModal(false);
+      fetchData();
+    } catch (e) {
+      console.error('gallery save error:', e);
     }
-    setShowModal(false);
-    fetchData();
   }
 
   async function handleDelete(id) {
     if (!confirm(t('confirmDelete'))) return;
-    await supabase.from('gallery_items').delete().eq('id', id);
-    fetchData();
+    try {
+      await supabase.from('gallery_items').delete().eq('id', id);
+      fetchData();
+    } catch (e) {
+      console.error('gallery delete error:', e);
+    }
   }
 
   if (loading) return (

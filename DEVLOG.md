@@ -781,3 +781,39 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 - [ ] 실기 시뮬레이터 구현
 - [ ] PWA 지원
 - [ ] 학습 알림 기능
+
+---
+
+## 2026-03-18 - v1.8.1 커뮤니티 DB 스키마 정합성 수정
+
+### 개요
+v1.8에서 커뮤니티 3페이지 CRUD 구현 시 실제 DB 스키마와 코드 간 컬럼명 불일치로
+모든 페이지가 "로딩 중..." 상태에서 멈추는 버그를 수정.
+
+### 발견된 불일치 및 수정
+
+| 테이블 | 코드 (Before) | 실제 DB | 수정 |
+|--------|--------------|---------|------|
+| `announcements` | `title`, `content` | `title_ko`, `content_ko` | `title_ko`/`content_ko` 사용, 언어별 `title_en`/`content_en` 폴백 |
+| `board_posts` | `author_id` | `user_id` | `user_id` 사용 |
+| `board_posts` | FK join `user_profiles(display_name)` | `author_name` (텍스트 컬럼) | `author_name` 직접 사용 |
+| `board_replies` | `author_id` | `user_id` | `user_id` 사용 |
+| `board_replies` | FK join `user_profiles(display_name)` | `author_name` (텍스트 컬럼) | `author_name` 직접 사용 |
+| `gallery_items` | FK join `user_profiles(display_name)` | FK 없음 | join 제거, `select('*')` |
+| `board_posts` | `board_replies(count)` aggregate | FK join 불가 | aggregate 제거 |
+
+### 추가 수정
+- 모든 fetch 함수에 `try-catch-finally` 추가 → `setLoading(false)` 보장
+- 게시글/댓글 작성 시 `author_name`에 `profile.display_name` 자동 삽입
+- 공지사항 폼 state 키를 `title_ko`/`content_ko`로 변경
+
+### 변경 파일
+| 파일 | 변경 |
+|------|------|
+| `src/pages/CommAnnouncements.jsx` | `title`→`title_ko`, `content`→`content_ko`, 언어별 폴백, try-catch |
+| `src/pages/CommBoard.jsx` | `author_id`→`user_id`, FK join 제거, `author_name` 직접 사용, try-catch |
+| `src/pages/CommGallery.jsx` | FK join 제거, `select('*')`, try-catch |
+
+### 빌드 결과
+- 빌드: 성공 (5.71s)
+- 에러: 0

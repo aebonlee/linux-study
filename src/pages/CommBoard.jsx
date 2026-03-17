@@ -16,7 +16,7 @@ const TYPE_MAP = {
 export default function CommBoard() {
   useAOS();
   const { t, language } = useLanguage();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const isKo = language === 'ko';
 
   const [view, setView] = useState('list');
@@ -35,12 +35,17 @@ export default function CommBoard() {
 
   const fetchPosts = useCallback(async () => {
     if (!supabase) { setLoading(false); return; }
-    const { data } = await supabase
-      .from('board_posts')
-      .select('*, user_profiles(display_name), board_replies(count)')
-      .order('created_at', { ascending: false });
-    setPosts(data || []);
-    setLoading(false);
+    try {
+      const { data } = await supabase
+        .from('board_posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      setPosts(data || []);
+    } catch (e) {
+      console.error('board fetch error:', e);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => { fetchPosts(); }, [fetchPosts]);
@@ -54,24 +59,28 @@ export default function CommBoard() {
   };
 
   async function openDetail(post) {
-    if (supabase) {
-      await supabase.rpc('increment_view_count', { p_id: post.id });
-    }
-    const { data: postData } = await supabase
-      .from('board_posts')
-      .select('*, user_profiles(display_name)')
-      .eq('id', post.id)
-      .single();
-    setCurrentPost(postData || post);
+    try {
+      if (supabase) {
+        await supabase.rpc('increment_view_count', { p_id: post.id });
+      }
+      const { data: postData } = await supabase
+        .from('board_posts')
+        .select('*')
+        .eq('id', post.id)
+        .single();
+      setCurrentPost(postData || post);
 
-    const { data: replyData } = await supabase
-      .from('board_replies')
-      .select('*, user_profiles(display_name)')
-      .eq('post_id', post.id)
-      .order('created_at', { ascending: true });
-    setReplies(replyData || []);
-    setReplyText('');
-    setView('detail');
+      const { data: replyData } = await supabase
+        .from('board_replies')
+        .select('*')
+        .eq('post_id', post.id)
+        .order('created_at', { ascending: true });
+      setReplies(replyData || []);
+      setReplyText('');
+      setView('detail');
+    } catch (e) {
+      console.error('board detail error:', e);
+    }
   }
 
   function openWrite(post = null) {
@@ -92,40 +101,61 @@ export default function CommBoard() {
 
   async function handleSave() {
     if (!form.title.trim() || !form.content.trim()) return;
-    if (editPost) {
-      await supabase.from('board_posts').update(form).eq('id', editPost.id);
-    } else {
-      await supabase.from('board_posts').insert([{ ...form, author_id: user.id }]);
+    try {
+      if (editPost) {
+        await supabase.from('board_posts').update(form).eq('id', editPost.id);
+      } else {
+        await supabase.from('board_posts').insert([{
+          ...form,
+          user_id: user.id,
+          author_name: profile?.display_name || user.email?.split('@')[0] || 'User',
+        }]);
+      }
+      goBack();
+    } catch (e) {
+      console.error('board save error:', e);
     }
-    goBack();
   }
 
   async function handleDeletePost(id) {
     if (!confirm(t('confirmDelete'))) return;
-    await supabase.from('board_posts').delete().eq('id', id);
-    goBack();
+    try {
+      await supabase.from('board_posts').delete().eq('id', id);
+      goBack();
+    } catch (e) {
+      console.error('board delete error:', e);
+    }
   }
 
   async function handleReplySubmit() {
     if (!replyText.trim() || !currentPost) return;
-    await supabase.from('board_replies').insert([{
-      post_id: currentPost.id,
-      author_id: user.id,
-      content: replyText.trim(),
-    }]);
-    const { data } = await supabase
-      .from('board_replies')
-      .select('*, user_profiles(display_name)')
-      .eq('post_id', currentPost.id)
-      .order('created_at', { ascending: true });
-    setReplies(data || []);
-    setReplyText('');
+    try {
+      await supabase.from('board_replies').insert([{
+        post_id: currentPost.id,
+        user_id: user.id,
+        author_name: profile?.display_name || user.email?.split('@')[0] || 'User',
+        content: replyText.trim(),
+      }]);
+      const { data } = await supabase
+        .from('board_replies')
+        .select('*')
+        .eq('post_id', currentPost.id)
+        .order('created_at', { ascending: true });
+      setReplies(data || []);
+      setReplyText('');
+    } catch (e) {
+      console.error('reply submit error:', e);
+    }
   }
 
   async function handleReplyDelete(replyId) {
     if (!confirm(t('confirmDelete'))) return;
-    await supabase.from('board_replies').delete().eq('id', replyId);
-    setReplies(prev => prev.filter(r => r.id !== replyId));
+    try {
+      await supabase.from('board_replies').delete().eq('id', replyId);
+      setReplies(prev => prev.filter(r => r.id !== replyId));
+    } catch (e) {
+      console.error('reply delete error:', e);
+    }
   }
 
   if (loading) return (
@@ -181,15 +211,11 @@ export default function CommBoard() {
                       <span className="board-category">{typeLabel(post.board_type)}</span>
                       <span className="board-title-text">{post.title}</span>
                       <div className="board-meta">
-                        <span className="board-author">{post.user_profiles?.display_name || '-'}</span>
+                        <span className="board-author">{post.author_name || '-'}</span>
                         <span className="board-date">{post.created_at?.slice(0, 10)}</span>
                         <span className="board-views">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                           {post.view_count || 0}
-                        </span>
-                        <span className="board-replies">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                          {post.board_replies?.[0]?.count ?? 0}
                         </span>
                       </div>
                     </div>
@@ -217,12 +243,12 @@ export default function CommBoard() {
                 <h2 className="board-detail-title">{currentPost.title}</h2>
               </div>
               <div className="board-detail-meta">
-                <span>{t('boardAuthor')}: {currentPost.user_profiles?.display_name || '-'}</span>
+                <span>{t('boardAuthor')}: {currentPost.author_name || '-'}</span>
                 <span>{currentPost.created_at?.slice(0, 10)}</span>
                 <span>{t('boardViews')}: {currentPost.view_count || 0}</span>
               </div>
               <div className="board-detail-content">{currentPost.content}</div>
-              {user && user.id === currentPost.author_id && (
+              {user && user.id === currentPost.user_id && (
                 <div className="board-detail-actions">
                   <button className="modal-btn secondary" onClick={() => openWrite(currentPost)}>{t('boardEdit')}</button>
                   <button className="modal-btn secondary" onClick={() => handleDeletePost(currentPost.id)}>{t('boardDelete')}</button>
@@ -242,8 +268,8 @@ export default function CommBoard() {
                   {replies.map(reply => (
                     <div key={reply.id} className="reply-item">
                       <div className="reply-meta">
-                        <span>{reply.user_profiles?.display_name || '-'} · {reply.created_at?.slice(0, 10)}</span>
-                        {user && user.id === reply.author_id && (
+                        <span>{reply.author_name || '-'} · {reply.created_at?.slice(0, 10)}</span>
+                        {user && user.id === reply.user_id && (
                           <button className="announce-action-btn delete" onClick={() => handleReplyDelete(reply.id)}>{t('boardReplyDelete')}</button>
                         )}
                       </div>
