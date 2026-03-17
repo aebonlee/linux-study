@@ -120,7 +120,7 @@ export default function App() {
           <Route path="profile" element={<Profile />} />
 
           {/* Community */}
-          <Route path="community" element={<CommCertIntro />} />
+          <Route path="community" element={<CommAnnouncements />} />
           <Route path="community/cert-intro" element={<CommCertIntro />} />
           <Route path="community/stats" element={<CommStats />} />
           <Route path="community/announcements" element={<CommAnnouncements />} />

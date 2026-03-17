@@ -84,12 +84,12 @@ const site = {
     { path: '/training', labelKey: 'site.nav.training', activePath: '/training' },
     {
       labelKey: 'site.nav.community',
-      path: '/community/cert-intro',
+      path: '/community/announcements',
       activePath: '/community',
       dropdown: [
+        { path: '/community/announcements', labelKey: 'site.nav.commAnnounce' },
         { path: '/community/cert-intro', labelKey: 'site.nav.commCertIntro' },
         { path: '/community/stats', labelKey: 'site.nav.commStats' },
-        { path: '/community/announcements', labelKey: 'site.nav.commAnnounce' },
         { path: '/community/stamps', labelKey: 'site.nav.commStamps' },
         { path: '/community/board', labelKey: 'site.nav.commBoard' },
         { path: '/community/gallery', labelKey: 'site.nav.commGallery' },
