@@ -689,8 +689,95 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 - 에러: 0
 
 ### 향후 계획
-- [ ] 게시판 Supabase 연동 (board_posts + board_replies)
-- [ ] 갤러리 Supabase 연동 (gallery_items)
-- [ ] 공지사항 Supabase 연동 (announcements)
+- [x] ~~게시판 Supabase 연동 (board_posts + board_replies)~~ → v1.8
+- [x] ~~갤러리 Supabase 연동 (gallery_items)~~ → v1.8
+- [x] ~~공지사항 Supabase 연동 (announcements)~~ → v1.8
 - [ ] 더 많은 모의고사 문제 추가
 - [ ] 실기 시뮬레이터 구현
+
+---
+
+## 2026-03-18 - v1.8 커뮤니티 3페이지 CRUD 구현 (공지사항·게시판·갤러리)
+
+### 개요
+하드코딩 데이터(`progressData.js`)를 사용하던 커뮤니티 3페이지를 Supabase DB 연동 + 완전한 CRUD로 전면 재작성.
+- **공지사항**: 관리자만 작성/수정/삭제, 모든 사용자 읽기
+- **게시판**: 인증 사용자 자기 글 CRUD + 댓글 CRUD, 조회수 RPC
+- **갤러리**: 인증 사용자 자기 아이템 CRUD, 카테고리 필터
+
+### 변경 사항
+
+#### 1. DB 정책 추가 (Supabase SQL Editor)
+- `announcements` 테이블: 관리자 INSERT/UPDATE/DELETE 정책 3개
+- `gallery_items` 테이블: 인증 사용자 자기 아이템 INSERT/UPDATE/DELETE 정책 3개
+- `increment_view_count(p_id uuid)` RPC 함수 (SECURITY DEFINER)
+
+#### 2. 번역 키 추가 (`translations.js`)
+- ko/en 각 51개 키 추가 (총 102개)
+- 공지사항 CRUD 8개, 게시판 CRUD 22개, 갤러리 CRUD 16개, 공통 5개
+
+#### 3. CSS 추가 (`progress.css`)
+- `.community-toolbar`, `.community-toolbar-btn` (도구 모음 + 버튼)
+- `.login-prompt` (로그인 유도 배너)
+- `.category-filter`, `.category-filter-btn` (카테고리 필터 버튼 그룹)
+- `.gallery-prog-card img`, `.gallery-placeholder` (이미지/플레이스홀더)
+- `.gallery-card-actions`, `.gallery-action-btn` (카드 액션 버튼)
+- `.announce-item-actions`, `.announce-action-btn` (공지 관리 버튼)
+- `.modal-overlay`, `.modal-content`, `.modal-form`, `.modal-field` (CRUD 모달)
+- `.board-detail`, `.board-detail-header/meta/content/actions` (게시글 상세 뷰)
+- `.reply-section`, `.reply-list`, `.reply-item`, `.reply-form` (댓글 영역)
+- `.board-write`, `.board-write-form`, `.board-write-actions` (글쓰기 뷰)
+- 다크모드 대응 (`[data-theme="dark"]` 셀렉터)
+- 반응형 대응 (`@media max-width: 768px`)
+
+#### 4. CommAnnouncements.jsx 전면 재작성
+- `progressData` import 제거 → `supabase` + `useAuth` 연동
+- DB fetch: `announcements` 테이블, `is_pinned` DESC + `published_at` DESC 정렬
+- 관리자(`profile.role === 'admin'`): 작성/수정/삭제 모달 폼
+- 태그 매핑: `general`(회색) / `exam`(빨강) / `content`(파랑) / `feature`(초록)
+- 고정(`is_pinned`) 배지 표시
+- 일반 사용자: 읽기 전용 아코디언 UI 유지
+
+#### 5. CommGallery.jsx 전면 재작성
+- DB fetch: `gallery_items` 테이블 + `user_profiles(display_name)` 조인
+- 카테고리 필터: all / project / infographic / screenshot / other
+- 이미지 URL 존재 시 `<img>` 표시, 없으면 SVG 플레이스홀더
+- 인증 사용자: 등록/수정/삭제 모달 폼 (`author_id === user.id` 본인만)
+- 비로그인 시 로그인 유도 배너 표시
+
+#### 6. CommBoard.jsx 전면 재작성 (가장 복잡)
+- 3개 뷰를 state로 관리: `list` / `detail` / `write`
+- **List 뷰**: 카테고리 필터(all/free/question/review/tip), 게시글 목록, 글쓰기 버튼
+  - `board_replies(count)` 조인으로 댓글 수 표시
+  - 조회수(`view_count`) 표시
+- **Detail 뷰**: 본문 + 댓글(`board_replies`) + 수정/삭제 버튼(본인만)
+  - `increment_view_count` RPC 호출로 조회수 증가
+  - 댓글 작성(인증 사용자), 삭제(본인만)
+- **Write 뷰**: 카테고리 선택, 제목, 내용 폼 (신규/수정 공용)
+- 비로그인 시 로그인 유도 배너 표시
+
+#### 7. progressData.js 정리
+- `announcements`, `boardPosts`, `galleryItems` export 제거
+- `certIntro`만 유지 (CommCertIntro.jsx에서 사용)
+
+### 변경 파일
+
+| 파일 | 변경 | 규모 |
+|------|------|------|
+| `src/utils/translations.js` | ko/en 번역 키 102개 추가 | +108줄 |
+| `src/styles/progress.css` | 커뮤니티 CRUD CSS + 다크모드 + 반응형 | +586줄 |
+| `src/pages/CommAnnouncements.jsx` | 전면 재작성 (DB 연동 + 관리자 CRUD) | +181/-59줄 |
+| `src/pages/CommGallery.jsx` | 전면 재작성 (DB 연동 + 사용자 CRUD) | +176/-57줄 |
+| `src/pages/CommBoard.jsx` | 전면 재작성 (3-view + 댓글 CRUD) | +301/-47줄 |
+| `src/config/progressData.js` | 미사용 export 3개 제거 | -107줄 |
+| **합계** | **6개 파일** | **+1,268 / -191줄** |
+
+### 빌드 결과
+- 빌드: 성공 (4.76s)
+- 에러: 0
+
+### 향후 계획
+- [ ] 더 많은 모의고사 문제 추가
+- [ ] 실기 시뮬레이터 구현
+- [ ] PWA 지원
+- [ ] 학습 알림 기능
