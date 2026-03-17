@@ -5,6 +5,7 @@ import { useProgress } from '../contexts/ProgressContext';
 import { lessons, exams, categories, getLessonsByCategory } from '../config/studyItems';
 import { certIntro, announcements, boardPosts, galleryItems } from '../config/progressData';
 import { fetchSiteStats } from '../hooks/usePageTracker';
+import useAOS from '../hooks/useAOS';
 import StampGrid from '../components/StampGrid';
 
 const PAGE_LABELS = {
@@ -42,6 +43,7 @@ const PAGE_LABELS = {
 };
 
 export default function Progress() {
+  useAOS();
   const { t, language } = useLanguage();
   const { getExamResult } = useProgress();
   const [siteStats, setSiteStats] = useState(null);
