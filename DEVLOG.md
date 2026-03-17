@@ -620,6 +620,34 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 - 빌드: 성공 (6.27s)
 - 에러: 0
 
+---
+
+## 2026-03-18 - v1.6.1 사이트 통계 로딩 무한 스피너 수정
+
+### 문제
+`/community/stats` 페이지에서 "통계 불러오는 중..." 스피너가 무한 회전하며 통계 데이터가 표시되지 않는 문제 발생.
+
+### 원인 분석
+1. `fetchSiteStats()`의 Promise에 `.catch()` 핸들러 없음 → 네트워크 오류/타임아웃 시 `statsLoading`이 영원히 `true`
+2. `totalRes` 쿼리가 `page_views` 테이블 전체 row를 fetch → 데이터 증가 시 응답 지연/타임아웃 가능성
+
+### 수정 사항
+
+#### `src/pages/CommStats.jsx`
+- 8초 타임아웃 추가: 응답이 없으면 자동으로 로딩 상태 해제
+- `.catch()` 핸들러 추가: Promise rejection 시에도 안전하게 처리
+- `useEffect` cleanup에서 타임아웃 정리
+
+#### `src/hooks/usePageTracker.js`
+- 전체 row fetch (`select('visitor_id')`) → `select('*', { count: 'exact', head: true })` 변경
+  - row 데이터 없이 count만 조회하여 성능 대폭 개선
+- 총 방문자 수를 최근 7일 데이터에서 추정하도록 변경
+- `catch` 블록에 `console.error` 추가로 디버깅 용이
+
+### 빌드 결과
+- 빌드: 성공 (8.89s)
+- 에러: 0
+
 ### 향후 계획
 - [ ] 게시판 실제 기능 구현 (Supabase 연동)
 - [ ] 갤러리 인포그래픽 이미지 제작
