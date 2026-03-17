@@ -523,3 +523,69 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 ### 빌드 결과
 - 빌드 시간: ~5.4초
 - 에러: 0
+
+---
+
+## 2026-03-18 - v1.5 커뮤니티 메뉴 구조 전환 (학습현황 → 커뮤니티)
+
+### 개요
+기존 `/progress` 단일 페이지에 몰려있던 7개 섹션을 개별 페이지로 분리하고,
+네비게이션 메뉴를 "학습현황" → "커뮤니티" 드롭다운으로 재구성하였습니다.
+
+### 변경 사항
+
+#### 1. 메뉴 구조 변경
+- "학습현황" 단일 링크 → "커뮤니티" 드롭다운 메뉴로 전환
+- 6개 하위 메뉴: 자격증 소개, 학습 현황, 공지사항, 모의고사 도장깨기, 게시판, 갤러리
+
+#### 2. 6개 커뮤니티 하위 페이지 생성
+| 파일 | 경로 | 내용 |
+|------|------|------|
+| `CommCertIntro.jsx` | `/community/cert-intro` | 2급/1급 자격증 소개 카드 |
+| `CommStats.jsx` | `/community/stats` | 방문자 통계 + 커리큘럼 현황 |
+| `CommAnnouncements.jsx` | `/community/announcements` | 공지사항 아코디언 |
+| `CommStampRally.jsx` | `/community/stamps` | 모의고사 도장깨기 + StampGrid |
+| `CommBoard.jsx` | `/community/board` | 게시판 (Coming Soon) |
+| `CommGallery.jsx` | `/community/gallery` | 인포그래픽 갤러리 (Coming Soon) |
+
+#### 3. 라우팅 변경
+- `/community` → `CommCertIntro` (기본)
+- `/progress` → `CommStats`로 리다이렉트 (하위 호환)
+- 6개 `/community/*` 라우트 추가
+
+#### 4. 기타 수정
+- `site.js`: 커뮤니티 드롭다운 메뉴 구성
+- `translations.js`: ko/en 커뮤니티 하위 메뉴 번역 키 12개 추가
+- `progress.css`: 컨테이너 상단 간격(padding-top: 48px) 추가
+
+### 파일 변경
+
+#### 신규 파일 (6개)
+| 파일 | 설명 |
+|------|------|
+| `src/pages/CommCertIntro.jsx` | 자격증 소개 페이지 |
+| `src/pages/CommStats.jsx` | 방문자 통계 + 커리큘럼 현황 |
+| `src/pages/CommAnnouncements.jsx` | 공지사항 페이지 |
+| `src/pages/CommStampRally.jsx` | 모의고사 도장깨기 |
+| `src/pages/CommBoard.jsx` | 게시판 페이지 |
+| `src/pages/CommGallery.jsx` | 갤러리 페이지 |
+
+#### 수정 파일 (4개)
+| 파일 | 변경 |
+|------|------|
+| `src/config/site.js` | 학습현황 → 커뮤니티 드롭다운 메뉴 (6개 하위) |
+| `src/App.jsx` | 6개 커뮤니티 라우트 추가, /progress 호환 유지 |
+| `src/utils/translations.js` | community 하위 메뉴 번역 키 추가 |
+| `src/styles/progress.css` | 컨테이너 상단 간격 추가 |
+
+### 빌드 결과
+- 총 387개 모듈 변환
+- CSS: 101.71 KB (gzip: 17.94 KB)
+- 빌드 시간: ~8.4초
+- 에러: 0
+
+### 향후 계획
+- [ ] 게시판 실제 기능 구현 (Supabase 연동)
+- [ ] 갤러리 인포그래픽 이미지 제작
+- [ ] 더 많은 모의고사 문제 추가
+- [ ] 실기 시뮬레이터 구현

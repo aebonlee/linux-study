@@ -82,7 +82,19 @@ const site = {
     },
     { path: '/references', labelKey: 'site.nav.references', activePath: '/references' },
     { path: '/training', labelKey: 'site.nav.training', activePath: '/training' },
-    { path: '/progress', labelKey: 'site.nav.progress', activePath: '/progress' }
+    {
+      labelKey: 'site.nav.community',
+      path: '/community/cert-intro',
+      activePath: '/community',
+      dropdown: [
+        { path: '/community/cert-intro', labelKey: 'site.nav.commCertIntro' },
+        { path: '/community/stats', labelKey: 'site.nav.commStats' },
+        { path: '/community/announcements', labelKey: 'site.nav.commAnnounce' },
+        { path: '/community/stamps', labelKey: 'site.nav.commStamps' },
+        { path: '/community/board', labelKey: 'site.nav.commBoard' },
+        { path: '/community/gallery', labelKey: 'site.nav.commGallery' },
+      ]
+    }
   ],
 
   footerLinks: [

@@ -42,7 +42,12 @@ const References = lazyLoad(() => import('./pages/References'));
 const Training = lazyLoad(() => import('./pages/Training'));
 const Login = lazyLoad(() => import('./pages/Login'));
 const Profile = lazyLoad(() => import('./pages/Profile'));
-const Progress = lazyLoad(() => import('./pages/Progress'));
+const CommCertIntro = lazyLoad(() => import('./pages/CommCertIntro'));
+const CommStats = lazyLoad(() => import('./pages/CommStats'));
+const CommAnnouncements = lazyLoad(() => import('./pages/CommAnnouncements'));
+const CommStampRally = lazyLoad(() => import('./pages/CommStampRally'));
+const CommBoard = lazyLoad(() => import('./pages/CommBoard'));
+const CommGallery = lazyLoad(() => import('./pages/CommGallery'));
 const NotFound = lazyLoad(() => import('./pages/NotFound'));
 
 function LoadingFallback() {
@@ -110,10 +115,19 @@ export default function App() {
           <Route path="references" element={<References />} />
           <Route path="training" element={<Training />} />
 
-          {/* Auth & Progress */}
+          {/* Auth & Profile */}
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="progress" element={<Progress />} />
+
+          {/* Community */}
+          <Route path="community" element={<CommCertIntro />} />
+          <Route path="community/cert-intro" element={<CommCertIntro />} />
+          <Route path="community/stats" element={<CommStats />} />
+          <Route path="community/announcements" element={<CommAnnouncements />} />
+          <Route path="community/stamps" element={<CommStampRally />} />
+          <Route path="community/board" element={<CommBoard />} />
+          <Route path="community/gallery" element={<CommGallery />} />
+          <Route path="progress" element={<CommStats />} />
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

@@ -4,6 +4,10 @@
     padding-bottom: var(--section-padding);
 }
 
+.progress-page > .container {
+    padding-top: 48px;
+}
+
 /* Progress Stats */
 .progress-stats {
     display: grid;

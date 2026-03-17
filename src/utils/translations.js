@@ -38,7 +38,14 @@ export const translations = {
         examGrade1R2: '1급 2차 모의고사',
         references: '참고자료',
         training: '교육신청',
-        progress: '학습현황'
+        progress: '학습현황',
+        community: '커뮤니티',
+        commCertIntro: '자격증 소개',
+        commStats: '학습 현황',
+        commAnnounce: '공지사항',
+        commStamps: '모의고사 도장깨기',
+        commBoard: '게시판',
+        commGallery: '갤러리'
       },
       home: {
         heroDesc: '리눅스 마스터 2급/1급 자격증 취득을 위한 체계적인 학습 플랫폼입니다.',
@@ -198,7 +205,14 @@ export const translations = {
         examGrade1R2: 'Grade 1 Round 2',
         references: 'References',
         training: 'Apply',
-        progress: 'Progress'
+        progress: 'Progress',
+        community: 'Community',
+        commCertIntro: 'Certification',
+        commStats: 'Stats',
+        commAnnounce: 'Announcements',
+        commStamps: 'Stamp Rally',
+        commBoard: 'Board',
+        commGallery: 'Gallery'
       },
       home: {
         heroDesc: 'A systematic learning platform for Linux Master Grade 2/1 certification.',
