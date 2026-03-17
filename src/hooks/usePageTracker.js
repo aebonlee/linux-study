@@ -20,7 +20,7 @@ export default function usePageTracker() {
     const record = async () => {
       try {
         await supabase.from('page_views').insert({
-          page_path: location.pathname,
+          path: location.pathname,
           visitor_id: getVisitorId()
         });
       } catch {
@@ -50,7 +50,7 @@ export async function fetchSiteStats() {
         .select('*', { count: 'exact', head: true }),
       // 인기 페이지 (최근 7일)
       supabase.from('page_views')
-        .select('page_path')
+        .select('path')
         .gte('created_at', weekAgo),
       // 최근 7일 일별 방문 수
       supabase.from('page_views')
@@ -69,8 +69,8 @@ export async function fetchSiteStats() {
     // 인기 페이지 (조회 수 기준 상위 5개)
     const pageCounts = {};
     (popularRes.data || []).forEach(r => {
-      if (r.page_path && r.page_path !== '/') {
-        pageCounts[r.page_path] = (pageCounts[r.page_path] || 0) + 1;
+      if (r.path && r.path !== '/') {
+        pageCounts[r.path] = (pageCounts[r.path] || 0) + 1;
       }
     });
     const popularPages = Object.entries(pageCounts)

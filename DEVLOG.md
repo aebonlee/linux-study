@@ -648,8 +648,49 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 - 빌드: 성공 (8.89s)
 - 에러: 0
 
+---
+
+## 2026-03-18 - v1.7 Supabase 스키마 정합성 점검 및 마이그레이션
+
+### 개요
+코드에서 사용하는 컬럼명과 실제 Supabase DB 스키마가 불일치하는 문제를 발견·수정.
+누락 테이블 2개(`announcements`, `board_replies`)를 Management API로 생성.
+
+### 발견된 불일치 및 수정
+
+| 파일 | 코드 (Before) | 실제 DB | 수정 |
+|------|--------------|---------|------|
+| `usePageTracker.js` | `page_path` | `path` | `path`로 변경 |
+| `AuthContext.jsx` | `profiles` 테이블 | `user_profiles` 테이블 | `user_profiles`로 변경 |
+| `Navbar.jsx`, `Profile.jsx` | `profile?.display_name` | `user_profiles.display_name` | 유지 (정확했음) |
+
+### 테이블 마이그레이션 결과
+
+| 테이블 | 상태 |
+|--------|------|
+| `user_profiles` (공용) | 기존 존재, 트리거 연동 확인 |
+| `user_progress` | 기존 존재 |
+| `exam_results` | 기존 존재 |
+| `page_views` | 기존 존재, 컬럼명 `path` 확인 |
+| `announcements` | **신규 생성** (공지사항) |
+| `board_posts` | 기존 존재 |
+| `board_replies` | **신규 생성** (댓글) |
+| `gallery_items` | 기존 존재 |
+
+### 변경 파일
+- `src/hooks/usePageTracker.js` — `page_path` → `path` (insert + select 모두)
+- `src/contexts/AuthContext.jsx` — `profiles` → `user_profiles` 테이블
+- `src/components/layout/Navbar.jsx` — `display_name` 확인 (변경 없음)
+- `src/pages/Profile.jsx` — `display_name` 확인 (변경 없음)
+- `supabase-setup.sql` — 실제 DB 스키마 기준 전면 재작성 (7개 테이블)
+
+### 빌드 결과
+- 빌드: 성공 (5.67s)
+- 에러: 0
+
 ### 향후 계획
-- [ ] 게시판 실제 기능 구현 (Supabase 연동)
-- [ ] 갤러리 인포그래픽 이미지 제작
+- [ ] 게시판 Supabase 연동 (board_posts + board_replies)
+- [ ] 갤러리 Supabase 연동 (gallery_items)
+- [ ] 공지사항 Supabase 연동 (announcements)
 - [ ] 더 많은 모의고사 문제 추가
 - [ ] 실기 시뮬레이터 구현

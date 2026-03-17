@@ -11,7 +11,7 @@ export function AuthProvider({ children }) {
   const fetchProfile = useCallback(async (userId) => {
     if (!supabase) return null;
     const { data } = await supabase
-      .from('profiles')
+      .from('user_profiles')
       .select('*')
       .eq('id', userId)
       .single();
@@ -95,7 +95,7 @@ export function AuthProvider({ children }) {
   const updateDisplayName = useCallback(async (displayName) => {
     if (!supabase || !user) return { error: { message: 'Not authenticated' } };
     const { error } = await supabase
-      .from('profiles')
+      .from('user_profiles')
       .update({ display_name: displayName })
       .eq('id', user.id);
     if (!error) {
