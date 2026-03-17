@@ -425,6 +425,96 @@
     padding-top: 12px;
 }
 
+/* ===== Curriculum Category List ===== */
+.curriculum-category-section {
+    margin-bottom: 32px;
+}
+
+.curriculum-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+.curriculum-category-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.curriculum-category-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    background: var(--primary-blue-bg);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+
+.curriculum-lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.curriculum-lesson-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 14px;
+    transition: var(--transition-base);
+}
+
+.curriculum-lesson-item:hover {
+    background: var(--primary-blue-bg);
+    border-color: var(--primary-blue);
+    transform: translateX(4px);
+}
+
+.curriculum-lesson-item svg {
+    flex-shrink: 0;
+    color: var(--text-secondary);
+}
+
+.curriculum-lesson-item:hover svg {
+    color: var(--primary-blue);
+}
+
+.curriculum-lesson-meta {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-light-gray);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* ===== Curriculum Dark Mode ===== */
+[data-theme="dark"] .curriculum-lesson-item {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .curriculum-lesson-item:hover {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: var(--primary-blue);
+}
+
+[data-theme="dark"] .curriculum-lesson-meta {
+    background: #374151;
+    color: rgba(255, 255, 255, 0.7);
+}
+
 /* ===== Visitor Dark Mode ===== */
 [data-theme="dark"] .visitor-section {
     border-bottom-color: #374151;
