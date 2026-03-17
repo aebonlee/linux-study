@@ -589,3 +589,39 @@ CSS 규칙 `[data-aos] { opacity: 0; }` 에 의해 모든 콘텐츠가 투명한
 - [ ] 갤러리 인포그래픽 이미지 제작
 - [ ] 더 많은 모의고사 문제 추가
 - [ ] 실기 시뮬레이터 구현
+
+---
+
+## 2026-03-18 - v1.6 메인페이지 아이콘 Font Awesome 전환
+
+### 개요
+메인 홈 페이지의 이모지(emoji) 아이콘을 Font Awesome 6.5.1 아이콘으로 전면 교체하였습니다.
+
+### 변경 사항
+
+#### 1. Font Awesome CDN 추가 (`index.html`)
+- Font Awesome 6.5.1 CDN 링크 추가
+- Noto Color Emoji 폰트 참조 제거
+
+#### 2. 아이콘 데이터 전환 (`src/pages/Home.jsx`)
+- **2급 커리큘럼** (7개): 이모지 → FA 아이콘 클래스
+  - `📋` → `fa-solid fa-clipboard-list`, `🖥️` → `fa-solid fa-desktop` 등
+- **1급 커리큘럼** (7개): 이모지 → FA 아이콘 클래스
+  - `📋` → `fa-solid fa-clipboard-list`, `🏗️` → `fa-solid fa-microchip` 등
+- **명령어 카드** (5개): 이모지 → FA 아이콘 클래스
+  - `📝` → `fa-solid fa-pen-to-square`, `📁` → `fa-solid fa-folder-open` 등
+- JSX 렌더링: `{item.icon}` (텍스트) → `<i className={item.icon} />` (FA 요소)
+
+#### 3. CSS 업데이트 (`src/styles/site.css`)
+- `.home-curriculum-icon`: `font-family: 'Noto Color Emoji'` 제거, `color: var(--primary-blue)` 적용
+- `.home-command-icon`: 동일 변경
+
+### 빌드 결과
+- 빌드: 성공 (6.27s)
+- 에러: 0
+
+### 향후 계획
+- [ ] 게시판 실제 기능 구현 (Supabase 연동)
+- [ ] 갤러리 인포그래픽 이미지 제작
+- [ ] 더 많은 모의고사 문제 추가
+- [ ] 실기 시뮬레이터 구현

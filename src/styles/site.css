@@ -194,9 +194,9 @@
 }
 
 .home-curriculum-icon {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   margin-bottom: 12px;
-  font-family: 'Noto Color Emoji', sans-serif;
+  color: var(--primary-blue);
 }
 
 .home-curriculum-title {
@@ -239,9 +239,9 @@
 }
 
 .home-command-icon {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 10px;
-  font-family: 'Noto Color Emoji', sans-serif;
+  color: var(--primary-blue);
 }
 
 .home-command-title {

@@ -12,43 +12,43 @@ const Home = () => {
       title: '2급 시험 개요',
       desc: '시험 구성, 합격 기준, 출제 범위, 접수 방법 등 2급 시험의 전반적인 안내',
       path: '/grade2/overview',
-      icon: '📋'
+      icon: 'fa-solid fa-clipboard-list'
     },
     {
       title: '1차 - 리눅스 운영 및 관리',
       desc: '리눅스의 이해, 설치, 기본 명령어, 사용자 관리, 파일 시스템 관리',
       path: '/grade2/part1-ch1',
-      icon: '🖥️'
+      icon: 'fa-solid fa-desktop'
     },
     {
       title: '1차 - 리눅스 활용',
       desc: 'X 윈도, 인터넷 활용, 응용 프로그램, 프로세스 관리, 셸 스크립트',
       path: '/grade2/part1-ch2',
-      icon: '⚙️'
+      icon: 'fa-solid fa-gears'
     },
     {
       title: '1차 - 리눅스 기초 명령어',
       desc: '파일 관련 명령어, 텍스트 처리, 압축/아카이브, 네트워크 기본',
       path: '/grade2/part1-ch3',
-      icon: '💻'
+      icon: 'fa-solid fa-terminal'
     },
     {
       title: '2차 - 리눅스 운영 및 관리',
       desc: '부팅 과정 상세, 패키지 관리, 로그 관리, 작업 스케줄링',
       path: '/grade2/part2-ch1',
-      icon: '🔧'
+      icon: 'fa-solid fa-wrench'
     },
     {
       title: '2차 - 리눅스 활용',
       desc: '네트워크 설정, 방화벽 기초, 서비스 관리, 프린터 관리',
       path: '/grade2/part2-ch2',
-      icon: '🌐'
+      icon: 'fa-solid fa-globe'
     },
     {
       title: '2차 - 리눅스 기초 명령어',
       desc: '고급 파일 관리, 디스크 관리, 권한 관리 심화 (ACL, setuid 등)',
       path: '/grade2/part2-ch3',
-      icon: '🔑'
+      icon: 'fa-solid fa-key'
     }
   ];
 
@@ -57,52 +57,52 @@ const Home = () => {
       title: '1급 시험 개요',
       desc: '1급 시험 구성, 난이도 안내, 출제 범위, 합격 전략',
       path: '/grade1/overview',
-      icon: '📋'
+      icon: 'fa-solid fa-clipboard-list'
     },
     {
       title: '1차 - 리눅스 실무의 이해',
       desc: '커널 상세, 부팅 심화, 파일 시스템 심화, 가상화 기술',
       path: '/grade1/part1-ch1',
-      icon: '🏗️'
+      icon: 'fa-solid fa-microchip'
     },
     {
       title: '1차 - 리눅스 시스템 관리',
       desc: 'PAM/LDAP, LVM/RAID, 커널 파라미터 튜닝, 시스템 모니터링',
       path: '/grade1/part1-ch2',
-      icon: '📊'
+      icon: 'fa-solid fa-chart-column'
     },
     {
       title: '2차 - 네트워크 및 서비스 관리',
       desc: 'TCP/IP 심화, 서버 구축, 메일 서버, NFS/Samba',
       path: '/grade1/part2-ch1',
-      icon: '🌍'
+      icon: 'fa-solid fa-network-wired'
     },
     {
       title: '2차 - 보안 및 시스템 최적화',
       desc: 'SELinux, 방화벽 심화, SSH 보안, 로그 분석, 성능 최적화',
       path: '/grade1/part2-ch2',
-      icon: '🛡️'
+      icon: 'fa-solid fa-shield-halved'
     },
     {
       title: '실기 - 서버 구축 실무',
       desc: 'LAMP/LEMP 스택, SSL/TLS, 웹서버+DB 서버 구축 시나리오',
       path: '/grade1/part3-ch1',
-      icon: '🏢'
+      icon: 'fa-solid fa-server'
     },
     {
       title: '실기 - 네트워크 보안 실무',
       desc: 'VPN, IDS/IPS, 백업 및 복구, 고난도 실무 시나리오',
       path: '/grade1/part3-ch2',
-      icon: '🔐'
+      icon: 'fa-solid fa-lock'
     }
   ];
 
   const commandCards = [
-    { title: '기본 명령어', desc: 'pwd, ls, cd, echo, man 등 필수 명령어', path: '/commands/basic', icon: '📝' },
-    { title: '파일/디렉터리 관리', desc: 'cp, mv, rm, mkdir, find, cat, head, tail 등', path: '/commands/file', icon: '📁' },
-    { title: '프로세스 관리', desc: 'ps, top, kill, nice, nohup, bg, fg, jobs 등', path: '/commands/process', icon: '⚡' },
-    { title: '네트워크 명령어', desc: 'ifconfig, ip, ping, netstat, ss, curl, wget 등', path: '/commands/network', icon: '🔗' },
-    { title: '시스템 관리', desc: 'systemctl, journalctl, useradd, chmod, mount 등', path: '/commands/admin', icon: '🛠️' }
+    { title: '기본 명령어', desc: 'pwd, ls, cd, echo, man 등 필수 명령어', path: '/commands/basic', icon: 'fa-solid fa-pen-to-square' },
+    { title: '파일/디렉터리 관리', desc: 'cp, mv, rm, mkdir, find, cat, head, tail 등', path: '/commands/file', icon: 'fa-solid fa-folder-open' },
+    { title: '프로세스 관리', desc: 'ps, top, kill, nice, nohup, bg, fg, jobs 등', path: '/commands/process', icon: 'fa-solid fa-bolt' },
+    { title: '네트워크 명령어', desc: 'ifconfig, ip, ping, netstat, ss, curl, wget 등', path: '/commands/network', icon: 'fa-solid fa-link' },
+    { title: '시스템 관리', desc: 'systemctl, journalctl, useradd, chmod, mount 등', path: '/commands/admin', icon: 'fa-solid fa-screwdriver-wrench' }
   ];
 
   return (
@@ -173,7 +173,7 @@ const Home = () => {
           <div className="home-curriculum-grid">
             {grade2Curriculum.map((item, i) => (
               <Link to={item.path} key={i} className="home-curriculum-card" data-aos="fade-up" data-aos-delay={i * 50}>
-                <span className="home-curriculum-icon">{item.icon}</span>
+                <span className="home-curriculum-icon"><i className={item.icon} /></span>
                 <h3 className="home-curriculum-title">{item.title}</h3>
                 <p className="home-curriculum-desc">{item.desc}</p>
               </Link>
@@ -192,7 +192,7 @@ const Home = () => {
           <div className="home-curriculum-grid">
             {grade1Curriculum.map((item, i) => (
               <Link to={item.path} key={i} className="home-curriculum-card" data-aos="fade-up" data-aos-delay={i * 50}>
-                <span className="home-curriculum-icon">{item.icon}</span>
+                <span className="home-curriculum-icon"><i className={item.icon} /></span>
                 <h3 className="home-curriculum-title">{item.title}</h3>
                 <p className="home-curriculum-desc">{item.desc}</p>
               </Link>
@@ -211,7 +211,7 @@ const Home = () => {
           <div className="home-commands-grid">
             {commandCards.map((item, i) => (
               <Link to={item.path} key={i} className="home-command-card" data-aos="fade-up" data-aos-delay={i * 50}>
-                <span className="home-command-icon">{item.icon}</span>
+                <span className="home-command-icon"><i className={item.icon} /></span>
                 <h3 className="home-command-title">{item.title}</h3>
                 <p className="home-command-desc">{item.desc}</p>
               </Link>
