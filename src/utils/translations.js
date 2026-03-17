@@ -131,6 +131,7 @@ export const translations = {
     totalRemaining: '남은 학습',
     completionRate: '진도율',
     overallProgress: '전체 진도',
+    myProgress: '나의 학습 진도',
     stampCollection: '스탬프',
     // Lesson complete
     markComplete: '학습 완료',
@@ -268,6 +269,7 @@ export const translations = {
     totalRemaining: 'Remaining',
     completionRate: 'Completion Rate',
     overallProgress: 'Overall Progress',
+    myProgress: 'My Learning Progress',
     stampCollection: 'Stamps',
     // Lesson complete
     markComplete: 'Mark Complete',
