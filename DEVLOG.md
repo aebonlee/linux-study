@@ -255,3 +255,100 @@ Supabase 인증, 학습 진도 추적, 프로필/학습현황 페이지, 뱃지/
 - [ ] PWA 지원
 - [ ] 학습 알림 기능
 - [ ] 커뮤니티 게시판 기능 확장
+
+---
+
+## 2026-03-17 - v1.2 UI/UX 개선 & 방문자 통계 & 배포 수정
+
+### 개요
+모의고사 레이아웃 개선, 방문자 통계 시스템 추가, 커스텀 도메인 배포 수정,
+각종 CSS 간격/색상 이슈를 해결하고 README.md를 작성하였습니다.
+
+### 변경 사항
+
+#### 1. 이모지 폰트 & 페이지 간격 개선
+- `index.html`: Google Noto Color Emoji 웹폰트 추가
+- `src/styles/site.css`:
+  - `.home-curriculum-icon`, `.home-command-icon`에 Noto Color Emoji 폰트 적용
+  - `.lesson-body`에 `padding-top: 3rem`, `padding-bottom: 3rem` 추가 (페이지 헤더↔본문 간격)
+  - `.lesson-section`에 `margin-bottom: 2rem` 추가 (모의고사 문항 간 간격)
+
+#### 2. 버튼 색상 CSS 우선순위 수정
+- `.lesson-body a` 스타일이 버튼 색상을 덮어쓰는 문제 해결:
+  - `.lesson-body a.btn`: `color: inherit; text-decoration: none`
+  - `.lesson-body a.btn-primary`: `color: var(--text-white)` (파란 버튼 흰색 글자)
+  - `.lesson-body a.btn-secondary`: `color: var(--primary-blue)` (흰 버튼 파란 글자)
+  - `.lesson-body a.btn-secondary:hover`: `color: var(--text-white)` (호버 시 흰색 글자)
+
+#### 3. 교육신청 연락처 업데이트
+- `src/pages/Training.jsx`:
+  - 문의처 → 연락처
+  - 이메일: aebon@dreamitbiz.com
+  - 전화: 010-3700-0629
+  - 운영시간: 평일 09:00 ~ 18:00 (점심시간 제거)
+
+#### 4. 방문자 통계 시스템
+- `src/hooks/usePageTracker.js` (신규):
+  - Supabase `page_views` 테이블에 페이지 방문 기록
+  - localStorage UUID로 방문자 식별
+  - `fetchSiteStats()`: 오늘 방문자, 총 방문자, 총 페이지뷰, 인기 페이지 Top 5, 최근 7일 일별 통계
+- `src/layouts/PublicLayout.jsx`: `usePageTracker` 훅 연동
+- `src/pages/Progress.jsx` 전면 재작성:
+  - 상단: 사이트 방문 통계 (3개 카드 + 7일 막대 차트 + 인기 페이지 랭킹)
+  - 하단: 나의 학습 진도 (통계 카드, 진도 바, 카테고리별 진행률, 스탬프 그리드)
+  - 경로 → 한글 페이지명 변환 (PAGE_LABELS 매핑)
+- `src/styles/progress.css`: 방문자 통계 CSS 추가 (~200줄)
+  - `.visitor-section`, `.visitor-stats-grid`, `.visitor-stat-card`
+  - `.visitor-chart`, `.visitor-chart-bar`, `.visitor-chart-bar-wrapper`
+  - `.visitor-popular-list`, `.visitor-popular-item`, `.visitor-popular-rank`
+  - 다크모드 및 반응형 규칙
+- `supabase-setup.sql` (신규): `page_views` 테이블 생성 SQL + RLS 정책
+
+#### 5. 푸터 간격 수정
+- `src/styles/footer.css`: `.footer` margin-top을 0에서 80px로 변경 (콘텐츠↔푸터 간격)
+
+#### 6. 모의고사 객관식 그리드 레이아웃
+- `src/styles/site.css`에 exam MCQ 전용 CSS 추가:
+  - `.exam-mcq-options`: 기본 1열 그리드
+  - `.exam-mcq-options.cols-2`: 2열 (선택지 20자 이하)
+  - `.exam-mcq-options.cols-4`: 4열 (선택지 10자 이하)
+  - `.exam-mcq-btn`: 선택/정답/오답/제출 상태별 스타일
+  - 480px 이하에서 4열→2열 폴백
+- 4개 모의고사 파일 업데이트:
+  - `ExamGrade2R1.jsx`, `ExamGrade2R2.jsx`, `ExamGrade1R1.jsx`, `ExamGrade1R2.jsx`
+  - 인라인 스타일 → CSS 클래스 기반 그리드로 전환
+  - 선택지 길이 자동 감지하여 열 수 결정
+
+#### 7. 커스텀 도메인 배포 수정
+- `public/CNAME` 파일 추가 (`linux-study.dreamitbiz.com`)
+- Vite 빌드 시 `dist/CNAME`에 자동 포함되도록 수정
+- 이전에는 루트의 CNAME만 있어 gh-pages 배포 시 커스텀 도메인이 해제되는 문제 해결
+
+#### 8. README.md 작성
+- 프로젝트 소개, 주요 기능, 기술 스택, 디렉토리 구조
+- 로컬 개발 가이드, 환경 변수, 배포 방법
+
+### 커밋 이력
+| 커밋 | 내용 |
+|------|------|
+| `81bffd8` | 이모지 Noto Color Emoji + 레슨 페이지 간격/버튼 색상 |
+| `5bcc0d4` | 교육신청 연락처 업데이트 |
+| `c75b9d5` | btn-secondary 호버 글자색 수정 |
+| `6524f41` | 방문자 통계 + 푸터 간격 |
+| `d60cebe` | 모의고사 객관식 2열/4열 배치 + README.md |
+| `905049c` | CNAME을 public/에 추가 (커스텀 도메인 수정) |
+| `96e7d69` | 모의고사 문항/섹션 간 줄간격 추가 |
+
+### 빌드 결과
+- 총 381개 모듈 변환
+- CSS: 93.17 KB (gzip: 16.80 KB)
+- 메인 JS 번들: 443.17 KB (gzip: 132.60 KB)
+- 빌드 시간: ~5초
+- 에러: 0
+
+### 향후 계획
+- [ ] 더 많은 모의고사 문제 추가
+- [ ] 실기 시뮬레이터 구현
+- [ ] PWA 지원
+- [ ] 학습 알림 기능
+- [ ] 커뮤니티 게시판 기능 확장
