@@ -7,6 +7,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(isSupabaseConfigured());
+  const [accountBlock, setAccountBlock] = useState(null);
+
+  const clearAccountBlock = useCallback(() => setAccountBlock(null), []);
 
   const fetchProfile = useCallback(async (userId) => {
     if (!supabase) return null;
@@ -15,6 +18,42 @@ export function AuthProvider({ children }) {
       .select('*')
       .eq('id', userId)
       .single();
+
+    // signup_domain / visited_sites / check_user_status 자동 처리
+    if (data) {
+      const currentDomain = window.location.hostname;
+      const updates = {};
+      if (!data.signup_domain) updates.signup_domain = currentDomain;
+      const sites = Array.isArray(data.visited_sites) ? data.visited_sites : [];
+      if (!sites.includes(currentDomain)) {
+        updates.visited_sites = [...sites, currentDomain];
+      }
+      if (Object.keys(updates).length > 0) {
+        supabase.from('user_profiles').update(updates).eq('id', userId).then(() => {});
+      }
+
+      // 계정 상태 체크
+      try {
+        const { data: statusData } = await supabase.rpc('check_user_status', {
+          target_user_id: userId,
+          current_domain: currentDomain,
+        });
+        if (statusData && statusData.status && statusData.status !== 'active') {
+          setAccountBlock({
+            status: statusData.status,
+            reason: statusData.reason || '',
+            suspended_until: statusData.suspended_until || null,
+          });
+          await supabase.auth.signOut();
+          setUser(null);
+          setProfile(null);
+          return null;
+        }
+      } catch {
+        // check_user_status 함수 미존재 시 무시
+      }
+    }
+
     return data;
   }, []);
 
@@ -28,6 +67,12 @@ export function AuthProvider({ children }) {
         if (currentUser) {
           const p = await fetchProfile(currentUser.id);
           setProfile(p);
+          if (event === 'SIGNED_IN') {
+            supabase.from('user_profiles')
+              .update({ last_sign_in_at: new Date().toISOString() })
+              .eq('id', currentUser.id)
+              .then(() => {});
+          }
         } else {
           setProfile(null);
         }
@@ -111,6 +156,8 @@ export function AuthProvider({ children }) {
       loading,
       isAuthenticated: !!user,
       isSupabaseAvailable: isSupabaseConfigured(),
+      accountBlock,
+      clearAccountBlock,
       signInWithGoogle,
       signInWithKakao,
       signInWithEmail,
