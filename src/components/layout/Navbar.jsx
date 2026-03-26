@@ -29,10 +29,12 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
     setIsMobileMenuOpen(false);
     setActiveDropdown(null);
-  }, [location]);
+  }
 
   const menuItems = site.menuItems.map((item) => ({
     ...item,

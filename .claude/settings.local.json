@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(git add:*)",
+      "Bash(cmd //c \"type D:\\\\linux-study\\\\src\\\\pages\\\\ExamGrade1R1.jsx\")",
+      "Bash(cmd //c powershell -Command \"Set-Content -Path ''D:/linux-study/_replace.js'' -Value ''console.log\\(123\\)''\")",
+      "Bash(cmd //c where pwsh)",
+      "Bash(cmd //c node -e \"const fs=require\\(''fs''\\);const b=Buffer.from\\(''Y29uc3QgZnMgPSByZXF1aXJlKCdmcycpOwpjb25zdCBmaWxlcyA9IFsKICAnRC9saW51eC1zdHVkeS9zcmMvcGFnZXMvRXhhbUdyYWRlMVIxLmpzeCcsCiAgJ0Q6L2xpbnV4LXN0dWR5L3NyYy9wYWdlcy9FeGFtR3JhZGUxUjIuanN4JywKICAnRDovbGludXgtc3R1ZHkvc3JjL3BhZ2VzL0V4YW1HcmFkZTJSMS5qc3gnLAogICdEOi9saW51eC1zdHVkeS9zcmMvcGFnZXMvRXhhbUdyYWRlMlIyLmpzeCcKXTsKZm9yIChjb25zdCBmaWxlIG9mIGZpbGVzKSB7CiAgbGV0IGMgPSBmcy5yZWFkRmlsZVN5bmMoZmlsZSwgJ3V0ZjgnKTsKICBjb25zb2xlLmxvZyhmaWxlICsgJyBsZW49JyArIGMubGVuZ3RoKTsKfQ=='',''base64''\\);fs.writeFileSync\\(''D:/linux-study/_replace.js'',b\\);console.log\\(''ok''\\);\")",
+      "Bash(cmd //c node:*)",
+      "Bash(cmd //c where certutil)"
+    ]
+  }
+}

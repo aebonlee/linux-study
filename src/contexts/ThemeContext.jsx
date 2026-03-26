@@ -9,18 +9,15 @@ const getTimeBasedTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [mode, setMode] = useState('auto');
-  const [theme, setTheme] = useState(() => getTimeBasedTheme());
+  const [autoTheme, setAutoTheme] = useState(getTimeBasedTheme);
   const [colorTheme, setColorTheme] = useState('blue');
 
+  const theme = mode === 'auto' ? autoTheme : mode;
+
   useEffect(() => {
-    if (mode !== 'auto') {
-      setTheme(mode);
-      return;
-    }
-    setTheme(getTimeBasedTheme());
-    const interval = setInterval(() => {
-      setTheme(getTimeBasedTheme());
-    }, 60000);
+    if (mode !== 'auto') return;
+    const update = () => setAutoTheme(getTimeBasedTheme());
+    const interval = setInterval(update, 60000);
     return () => clearInterval(interval);
   }, [mode]);
 
@@ -47,6 +44,7 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
