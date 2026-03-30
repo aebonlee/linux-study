@@ -130,6 +130,14 @@ export function AuthProvider({ children }) {
     return { data, error };
   }, []);
 
+  const resetPassword = useCallback(async (email) => {
+    if (!supabase) return { error: { message: 'Supabase not configured' } };
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + '/login',
+    });
+    return { data, error };
+  }, []);
+
   const signOut = useCallback(async () => {
     if (!supabase) return;
     await supabase.auth.signOut({ scope: 'local' });
@@ -162,6 +170,7 @@ export function AuthProvider({ children }) {
       signInWithKakao,
       signInWithEmail,
       signUpWithEmail,
+      resetPassword,
       signOut,
       updateDisplayName
     }}>

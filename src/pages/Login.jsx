@@ -4,17 +4,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Login() {
-  const { isAuthenticated, loading, signInWithGoogle, signInWithKakao, signInWithEmail, signUpWithEmail } = useAuth();
+  const { isAuthenticated, loading, signInWithGoogle, signInWithKakao, signInWithEmail } = useAuth();
   const { t } = useLanguage();
-  const [step, setStep] = useState('method'); // 'method' | 'email' | 'register'
+  const [step, setStep] = useState('method');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  // Detect OAuth callback errors in URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const errorCode = params.get('error');
@@ -52,42 +49,19 @@ export default function Login() {
     }
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    setSubmitting(true);
-    try {
-      const { error: err } = await signUpWithEmail(email, password, displayName);
-      if (err) {
-        setError(err.message);
-      } else {
-        setSuccess(t('signUpSuccess'));
-      }
-    } catch {
-      setError(t('authError'));
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const pageTitle = step === 'register' ? t('signUpTitle') : t('loginTitle');
-
   return (
     <div className="auth-page-wrapper">
       <section className="page-header">
         <div className="container">
-          <h1>{pageTitle}</h1>
+          <h1>{t('loginTitle')}</h1>
         </div>
       </section>
 
       <div className="auth-page">
         <div className="auth-card">
-
           {step === 'method' && (
             <>
               <p className="auth-sub">{t('loginSubtitle')}</p>
-
               <div className="auth-methods">
                 <button className="auth-method-btn google" onClick={() => handleSocialLogin('google')}>
                   <svg viewBox="0 0 24 24" width="20" height="20">
@@ -117,9 +91,7 @@ export default function Login() {
 
               <div className="auth-bottom-link">
                 <span>{t('noAccount')}</span>
-                <button className="auth-link-btn" onClick={() => { setStep('register'); setError(''); }}>
-                  {t('signUp')}
-                </button>
+                <Link to="/register">{t('signUp')}</Link>
               </div>
             </>
           )}
@@ -128,116 +100,29 @@ export default function Login() {
             <>
               <form className="auth-form" onSubmit={handleEmailLogin}>
                 <div className="auth-field">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder={t('email')}
-                    required
-                    autoFocus
-                  />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('email')} required autoFocus />
                 </div>
                 <div className="auth-field">
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder={t('password')}
-                    required
-                    minLength={6}
-                  />
+                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t('password')} required />
                 </div>
-
                 {error && <div className="auth-message auth-error">{error}</div>}
-
                 <div className="auth-form-actions">
-                  <button type="button" className="auth-back-btn" onClick={() => { setStep('method'); setError(''); }}>
-                    {t('back')}
-                  </button>
-                  <button type="submit" className="auth-submit-btn" disabled={submitting}>
-                    {t('login')}
-                  </button>
+                  <button type="button" className="auth-back-btn" onClick={() => { setStep('method'); setError(''); }}>{t('back')}</button>
+                  <button type="submit" className="auth-submit-btn" disabled={submitting}>{t('login')}</button>
                 </div>
               </form>
 
+              <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+                <Link to="/forgot-password" style={{ fontSize: '13px', color: 'var(--text-light)' }}>
+                  비밀번호를 잊으셨나요?
+                </Link>
+              </div>
               <div className="auth-bottom-link">
                 <span>{t('noAccount')}</span>
-                <button className="auth-link-btn" onClick={() => { setStep('register'); setError(''); }}>
-                  {t('signUp')}
-                </button>
+                <Link to="/register">{t('signUp')}</Link>
               </div>
             </>
           )}
-
-          {step === 'register' && (
-            <>
-              {success ? (
-                <div className="auth-success-box">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="48" height="48">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                  <p>{t('signUpSuccess')}</p>
-                  <button className="auth-submit-btn" style={{ width: '100%' }} onClick={() => { setStep('method'); setSuccess(''); }}>
-                    {t('login')}
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <form className="auth-form" onSubmit={handleRegister}>
-                    <div className="auth-field">
-                      <input
-                        type="text"
-                        value={displayName}
-                        onChange={(e) => setDisplayName(e.target.value)}
-                        placeholder={t('displayName')}
-                        required
-                        autoFocus
-                      />
-                    </div>
-                    <div className="auth-field">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder={t('email')}
-                        required
-                      />
-                    </div>
-                    <div className="auth-field">
-                      <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder={t('password')}
-                        required
-                        minLength={6}
-                      />
-                    </div>
-
-                    {error && <div className="auth-message auth-error">{error}</div>}
-
-                    <div className="auth-form-actions">
-                      <button type="button" className="auth-back-btn" onClick={() => { setStep('method'); setError(''); }}>
-                        {t('back')}
-                      </button>
-                      <button type="submit" className="auth-submit-btn" disabled={submitting}>
-                        {t('signUp')}
-                      </button>
-                    </div>
-                  </form>
-
-                  <div className="auth-bottom-link">
-                    <span>{t('hasAccount')}</span>
-                    <button className="auth-link-btn" onClick={() => { setStep('method'); setError(''); }}>
-                      {t('login')}
-                    </button>
-                  </div>
-                </>
-              )}
-            </>
-          )}
-
         </div>
       </div>
     </div>

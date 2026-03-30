@@ -41,6 +41,8 @@ const ExamGrade1R2 = lazyLoad(() => import('./pages/ExamGrade1R2'));
 const References = lazyLoad(() => import('./pages/References'));
 const Training = lazyLoad(() => import('./pages/Training'));
 const Login = lazyLoad(() => import('./pages/Login'));
+const Register = lazyLoad(() => import('./pages/Register'));
+const ForgotPassword = lazyLoad(() => import('./pages/ForgotPassword'));
 const Profile = lazyLoad(() => import('./pages/Profile'));
 const CommCertIntro = lazyLoad(() => import('./pages/CommCertIntro'));
 const CommStats = lazyLoad(() => import('./pages/CommStats'));
@@ -117,6 +119,8 @@ export default function App() {
 
           {/* Auth & Profile */}
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="profile" element={<Profile />} />
 
           {/* Community */}
