@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { supabase, isSupabaseConfigured, setSharedSession, getSharedSession, clearSharedSession } from '../lib/supabase';
+import { ADMIN_EMAILS } from '../config/admin';
 import type { User } from '@supabase/supabase-js';
 
 interface AccountBlock {
@@ -18,6 +19,7 @@ interface AuthContextValue {
   profile: any;
   loading: boolean;
   isAuthenticated: boolean;
+  isAdmin: boolean;
   isSupabaseAvailable: boolean;
   accountBlock: AccountBlock | null;
   clearAccountBlock: () => void;
@@ -198,12 +200,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   }, [user]);
 
+  const allEmails = [
+    user?.email,
+    (user?.user_metadata as any)?.email,
+    user?.identities?.[0]?.identity_data?.email,
+    profile?.email,
+  ].filter((e): e is string => typeof e === 'string').map((e) => e.toLowerCase());
+  const isAdmin = allEmails.some((e) => ADMIN_EMAILS.includes(e));
+
   return (
     <AuthContext.Provider value={{
       user,
       profile,
       loading,
       isAuthenticated: !!user,
+      isAdmin,
       isSupabaseAvailable: isSupabaseConfigured(),
       accountBlock,
       clearAccountBlock,

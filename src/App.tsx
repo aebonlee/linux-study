@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './layouts/PublicLayout';
+import AdminGuard from './components/AdminGuard';
 
 function lazyLoad(importFn: () => Promise<{ default: React.ComponentType<any> }>) {
   return lazy(() =>
@@ -51,6 +52,7 @@ const CommStampRally = lazyLoad(() => import('./pages/CommStampRally'));
 const CommBoard = lazyLoad(() => import('./pages/CommBoard'));
 const CommGallery = lazyLoad(() => import('./pages/CommGallery'));
 const NotFound = lazyLoad(() => import('./pages/NotFound'));
+const AdminDashboard = lazyLoad(() => import('./pages/admin/AdminDashboard'));
 
 function LoadingFallback() {
   return (
@@ -132,6 +134,9 @@ export default function App() {
           <Route path="community/board" element={<CommBoard />} />
           <Route path="community/gallery" element={<CommGallery />} />
           <Route path="progress" element={<CommStats />} />
+
+          {/* Admin */}
+          <Route path="admin/dashboard/*" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
 
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
