@@ -3,6 +3,7 @@ import { supabase, isSupabaseConfigured, setSharedSession, getSharedSession, cle
 import { ADMIN_EMAILS } from '../config/admin';
 import type { User } from '@supabase/supabase-js';
 import { useIdleTimeout } from '../hooks/useIdleTimeout';
+import ProfileCompleteModal from '../components/ProfileCompleteModal';
 
 interface AccountBlock {
   status: string;
@@ -214,10 +215,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useIdleTimeout({
   enabled: !!user,
   onTimeout: () => {
-  supabase.auth.signOut();
+  supabase?.auth.signOut();
   clearSharedSession();
   },
   });
+  const refreshProfile = useCallback(async () => { if (user) { const p = await fetchProfile(user.id); setProfile(p); } }, [user, fetchProfile]);
+  const needsProfileCompletion = !!user && !!profile && (!profile.name || !profile.phone);
+
 
   return (
     <AuthContext.Provider value={{
@@ -238,6 +242,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       updateDisplayName
     }}>
       {children}
+      {needsProfileCompletion && user && (
+        <ProfileCompleteModal user={user} onComplete={refreshProfile} />
+      )}
     </AuthContext.Provider>
   );
 }
