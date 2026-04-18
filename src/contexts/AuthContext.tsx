@@ -131,16 +131,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
     }, 5000);
 
-
-  // 10분 무동작 세션 타임아웃
-  useIdleTimeout({
-    enabled: !!user,
-    onTimeout: () => {
-      supabase.auth.signOut();
-      clearSharedSession();
-    },
-  });
-
     return () => {
       clearTimeout(fallbackTimer);
       subscription.unsubscribe();
@@ -218,6 +208,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     profile?.email,
   ].filter((e): e is string => typeof e === 'string').map((e) => e.toLowerCase());
   const isAdmin = allEmails.some((e) => ADMIN_EMAILS.includes(e));
+
+
+  // 10분 무동작 세션 타임아웃
+  useIdleTimeout({
+  enabled: !!user,
+  onTimeout: () => {
+  supabase.auth.signOut();
+  clearSharedSession();
+  },
+  });
 
   return (
     <AuthContext.Provider value={{
