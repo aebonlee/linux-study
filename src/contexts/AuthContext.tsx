@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect, useCallback, type React
 import { supabase, isSupabaseConfigured, setSharedSession, getSharedSession, clearSharedSession } from '../lib/supabase';
 import { ADMIN_EMAILS } from '../config/admin';
 import type { User } from '@supabase/supabase-js';
+import { useIdleTimeout } from '../hooks/useIdleTimeout';
 
 interface AccountBlock {
   status: string;
@@ -129,6 +130,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const fallbackTimer = setTimeout(() => {
       setLoading(false);
     }, 5000);
+
+
+  // 10분 무동작 세션 타임아웃
+  useIdleTimeout({
+    enabled: !!user,
+    onTimeout: () => {
+      supabase.auth.signOut();
+      clearSharedSession();
+    },
+  });
 
     return () => {
       clearTimeout(fallbackTimer);
