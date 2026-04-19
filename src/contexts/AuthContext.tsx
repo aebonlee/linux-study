@@ -220,7 +220,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   },
   });
   const refreshProfile = useCallback(async () => { if (user) { const p = await fetchProfile(user.id); setProfile(p); } }, [user, fetchProfile]);
-  const needsProfileCompletion = !!user && !!profile && (!profile.name || !profile.phone);
+  const needsProfileCompletion = !!user && !!profile && !profile.name;
 
 
   return (
