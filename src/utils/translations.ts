@@ -222,8 +222,8 @@ export const translations = {
   },
   en: {
     nav: {
-      home: 'Home'
-          about: 'About',
+      home: 'Home',
+      about: 'About',
     },
     site: {
       nav: {
