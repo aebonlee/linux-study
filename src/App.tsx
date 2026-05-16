@@ -52,6 +52,7 @@ const CommStampRally = lazyLoad(() => import('./pages/CommStampRally'));
 const CommBoard = lazyLoad(() => import('./pages/CommBoard'));
 const CommGallery = lazyLoad(() => import('./pages/CommGallery'));
 const NotFound = lazyLoad(() => import('./pages/NotFound'));
+const About = lazyLoad(() => import('./pages/About'));
 const AdminDashboard = lazyLoad(() => import('./pages/admin/AdminDashboard'));
 
 function LoadingFallback() {
@@ -139,6 +140,7 @@ export default function App() {
           <Route path="admin/dashboard/*" element={<AdminGuard><AdminDashboard /></AdminGuard>} />
 
           {/* 404 */}
+          <Route path="about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

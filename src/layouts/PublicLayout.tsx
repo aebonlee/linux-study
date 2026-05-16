@@ -4,7 +4,6 @@ import Footer from '../components/layout/Footer';
 import useCodeCopy from '../hooks/useCodeCopy';
 import useTableScroller from '../hooks/useTableScroller';
 import usePageTracker from '../hooks/usePageTracker';
-const About = lazy(() => import('../pages/About'));
 
 const PublicLayout = () => {
   useCodeCopy();
