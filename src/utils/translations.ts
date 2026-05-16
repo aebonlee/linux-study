@@ -1,7 +1,8 @@
 export const translations = {
   ko: {
     nav: {
-      home: '홈'
+      home: '홈',
+      about: '소개'
     },
     site: {
       nav: {
