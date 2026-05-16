@@ -19,6 +19,7 @@ const site = {
   themeColor: '#0046C8',
 
   menuItems: [
+    { path: '/about', labelKey: 'nav.about' },
     {
       labelKey: 'site.nav.intro',
       path: '/intro/what-is-linux',
